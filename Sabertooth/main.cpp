@@ -117,6 +117,8 @@ int main() {
 	int matrixLocation = glGetUniformLocation(shader_programme, "matrix");
 	glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.f)));
 
+	int i = 0;
+
 	float speedX = 1.0f;
 	float lastPositionX = 0.0f;
 	float speedY = 0.8f;
@@ -179,17 +181,25 @@ int main() {
 		cout << "matrix 13 antes translate: " << lastPositionY << "\n";
 		cout << "elapsedSeconds: " << elapsedSeconds << "\n";
 
-
+		//Perspectiva
+		glm::mat4 proj = glm::perspective(glm::radians(30.0f), (float)1 / (float)1, 0.1f, 100.0f);
+		glm::mat4 view = glm::lookAt(
+			glm::vec3(3, 3, 4), // Camera is at (4,3,3), in World Space
+			glm::vec3(0, 0, 0), // and looks at the origin
+			glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+		);
 
 		glm::mat4 t2 = glm::translate(glm::mat4(1.f), glm::vec3((elapsedSeconds * speedX + lastPositionX), (elapsedSeconds * speedY + lastPositionY), 0.f));
 		glm::vec4 vector(0.f, 0.f, 1.f, 1.f);
 		glm::vec4 transformedVector = t2 * vector;
 
+		
 
 		if (!(transformedVector[1] >= 0.5f)) {
 			lastPositionY = transformedVector[1];
 		}
 		else { lastPositionY = 0.5f; }
+
 
 		if (!(transformedVector[0] >= 0.5f)) {
 			lastPositionX = transformedVector[0];
@@ -218,11 +228,11 @@ int main() {
 		}
 
 
+		
 
 
 
-
-		glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(t2));
+		glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(proj*view*t2));
 		//glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, matrix);
 		// Define vao como verte array atual
 		// desenha pontos a partir do p0 e 3 no total do VAO atual com o shader    
