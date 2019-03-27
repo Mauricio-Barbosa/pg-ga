@@ -186,12 +186,12 @@ int main() {
 		glm::vec4 transformedVector = t2 * vector;
 
 
-		if (!(transformedVector[1] > 0.5f)) {
+		if (!(transformedVector[1] >= 0.5f)) {
 			lastPositionY = transformedVector[1];
 		}
 		else { lastPositionY = 0.5f; }
 
-		if (!(transformedVector[0] > 0.5f)) {
+		if (!(transformedVector[0] >= 0.5f)) {
 			lastPositionX = transformedVector[0];
 		}
 		else { lastPositionX = 0.5f; }
