@@ -12,9 +12,87 @@ using namespace std;
 #define EXIT_FAILURE -1
 #define EXIT_SUCCESS 0
 
+
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 10.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+glm::mat4 view;
+
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 	glfwSwapBuffers(window);
+}
+
+bool firstMouse = true;
+float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+float pitch = 0.0f;
+float fov = 45.0f;
+float lastX = SCR_WIDTH / 2.0f;
+float lastY = SCR_HEIGHT / 2.0f;
+
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	
+		if (firstMouse)
+		{
+			lastX = xpos;
+			lastY = ypos;
+			firstMouse = false;
+		}
+	
+		float xoffset = xpos - lastX;
+		float yoffset = lastY - ypos;
+		lastX = xpos;
+		lastY = ypos;
+
+		float sensitivity = 0.05;
+		xoffset *= sensitivity;
+		yoffset *= sensitivity;
+
+		yaw += xoffset;
+		pitch += yoffset;
+
+		if (pitch > 89.0f)
+			pitch = 89.0f;
+		if (pitch < -89.0f)
+			pitch = -89.0f;
+	//if (glfwGetKey(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+		glm::vec3 front;
+		front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+		front.y = sin(glm::radians(pitch));
+		front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+		cameraFront = glm::normalize(front);
+	//}
+}
+
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	if (fov >= 1.0f && fov <= 45.0f)
+		fov -= yoffset;
+	if (fov <= 1.0f)
+		fov = 1.0f;
+	if (fov >= 45.0f)
+		fov = 45.0f;
+}
+
+
+
+void processInput(GLFWwindow *window)
+{
+		float cameraSpeed = 0.05f; // adjust accordingly
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		cameraPos += cameraSpeed * cameraFront;
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		cameraPos -= cameraSpeed * cameraFront;
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
 int main() {
@@ -119,6 +197,14 @@ int main() {
 
 	int i = 0;
 
+	
+	
+	//Associa função mouse callback ao mouse_callback
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(window, mouse_callback);
+
+	glfwSetScrollCallback(window, scroll_callback);
+
 	float speedX = 1.0f;
 	float lastPositionX = 0.0f;
 	float speedY = 0.8f;
@@ -182,19 +268,15 @@ int main() {
 		cout << "elapsedSeconds: " << elapsedSeconds << "\n";
 
 		//Perspectiva
-		glm::mat4 proj = glm::perspective(glm::radians(30.0f), (float)1 / (float)1, 0.1f, 100.0f);
-		glm::mat4 view = glm::lookAt(
-			glm::vec3(3, 3, 4), // Camera is at (4,3,3), in World Space
-			glm::vec3(0, 0, 0), // and looks at the origin
-			glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-		);
-
-		glm::mat4 t2 = glm::translate(glm::mat4(1.f), glm::vec3((elapsedSeconds * speedX + lastPositionX), (elapsedSeconds * speedY + lastPositionY), 0.f));
-		glm::vec4 vector(0.f, 0.f, 1.f, 1.f);
-		glm::vec4 transformedVector = t2 * vector;
-
 		
 
+		glm::mat4 t2 = glm::translate(glm::mat4(1.f), glm::vec3((elapsedSeconds * speedX + lastPositionX), (elapsedSeconds * speedY + lastPositionY), 0.f));
+		//glm::vec4 vector(0.f, 0.f, 1.f, 1.f);
+		glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
+		glm::vec4 transformedVector = t2 * vector;
+		
+		
+		/*
 		if (!(transformedVector[1] >= 0.5f)) {
 			lastPositionY = transformedVector[1];
 		}
@@ -205,34 +287,20 @@ int main() {
 			lastPositionX = transformedVector[0];
 		}
 		else { lastPositionX = 0.5f; }
-		
+		*/
 		
 		cout << "matrix 12 depois translate: " << lastPositionX << "\n";
 		cout << "matrix 13 depois translate: " << lastPositionY << "\n";
 
-		// Move forward
-		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS && fabs(lastPositionY) + 0.02f  < 0.5f) {
-			lastPositionY += 0.02f;
-		}
-		// Move backward
-		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS && (lastPositionY) - 0.02f > -0.5f) {
-			lastPositionY -= 0.02f;
-		}
-		// Strafe right
-		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && fabs(lastPositionX) + 0.02f  < 0.5f) {
-			lastPositionX += 0.02f;
-		}
-		// Strafe left
-		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS && (lastPositionX) - 0.02f  > -0.5f) {
-			lastPositionX -= 0.02f;
-		}
+		glm::mat4 projection = glm::perspective(glm::radians(fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
-
+		processInput(window);
 		
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
 
 
-		glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(proj*view*t2));
+		glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection*view*t2));
 		//glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, matrix);
 		// Define vao como verte array atual
 		// desenha pontos a partir do p0 e 3 no total do VAO atual com o shader    
