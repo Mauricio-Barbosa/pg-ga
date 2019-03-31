@@ -1,0 +1,15 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Sabertooth.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  main.cpp
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(13): warning C4005: 'EXIT_FAILURE': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdlib.h(49): note: see previous definition of 'EXIT_FAILURE'
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(45): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(49): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(50): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(51): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(52): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(54): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(78): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(277): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(281): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  pa-ga.vcxproj -> C:\Users\mauri\source\repos\pg-ga\x64\Debug\pg-ga.exe

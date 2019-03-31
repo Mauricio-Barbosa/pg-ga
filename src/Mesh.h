@@ -14,9 +14,9 @@ public:
 		m_vec.insert(m_vec.begin(), g);
 	}
 
-
+	
 	Group* getN(int n) {
-		return m_vec.at[n];
+		return m_vec[n];
 	}
 
 	void setN(int n, Group* group) {

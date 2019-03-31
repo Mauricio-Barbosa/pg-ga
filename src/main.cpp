@@ -6,14 +6,14 @@
 #include <glm/mat4x4.hpp> // glm::mat4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp>
-//#include "Mesh.h"
+#include "Mesh.h"
 
 using namespace std;
 
 #define EXIT_FAILURE -1
 #define EXIT_SUCCESS 0
 
-//Mesh* m = new Mesh;
+Mesh* m = new Mesh;
 
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 10.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -164,16 +164,25 @@ int main() {
 	};
 	*/
 	GLfloat points[] = {
-		//m->getN(1)->getFace(0)->getVert(),
 		0.0f, 1.5f, 0.0f,
 		0.5f, -0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
 	};
 
+	std::vector<glm::vec3> m_verts;
+	glm::vec3 m_vec1 = glm::vec3(0.f, 0.5f, 0.f);
+	glm::vec3 m_vec2 = glm::vec3(0.5f, -0.5f, 0.f);
+	glm::vec3 m_vec3 = glm::vec3(-0.5f, -0.5f, 0.f);
+	m_verts.insert(m_verts.begin(), m_vec1);
+	m_verts.insert(m_verts.begin(), m_vec2);
+	m_verts.insert(m_verts.begin(), m_vec3);
+
 	GLuint vbo = 0;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_verts.size(), &m_verts[0], GL_STATIC_DRAW);
+
 
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
