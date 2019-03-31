@@ -17,6 +17,8 @@ public:
 		//m_face.insert(m_face.begin(), f1);
 		//m_face.insert(m_face.begin(), f2);
 		//m_face.insert(m_face.begin(), f3);
+		Face* face = new Face();
+		m_face.insert(m_face.begin(), face);
 	}
 
 	Face* getFace(int i) {

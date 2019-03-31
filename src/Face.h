@@ -12,15 +12,16 @@ private:
 	//glm::vec2 m_texts;
 
 public:
-	Face() {}
-
-	/*
-	Face(float a, float b, float c) {
-		m_verts[0] = a;
-		m_verts[1] = b;
-		m_verts[2] = c;
+	Face() {
+		glm::vec3 m_vec1 = glm::vec3(0.f, 0.5f, 0.f);
+		glm::vec3 m_vec2 = glm::vec3(0.5f, -0.5f, 0.f);
+		glm::vec3 m_vec3 = glm::vec3(-0.5f, -0.5f, 0.f);
+		m_verts.insert(m_verts.begin(), m_vec1);
+		m_verts.insert(m_verts.begin(), m_vec2);
+		m_verts.insert(m_verts.begin(), m_vec3);
 	}
-	*/
+
+	
 	/*
 	glm::vec3* getVert() {
 		//float *i = new float[]{ m_verts.x, m_verts.y, m_verts.z };

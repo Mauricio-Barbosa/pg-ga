@@ -168,14 +168,8 @@ int main() {
 		0.5f, -0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
 	};
-
-	std::vector<glm::vec3> m_verts;
-	glm::vec3 m_vec1 = glm::vec3(0.f, 0.5f, 0.f);
-	glm::vec3 m_vec2 = glm::vec3(0.5f, -0.5f, 0.f);
-	glm::vec3 m_vec3 = glm::vec3(-0.5f, -0.5f, 0.f);
-	m_verts.insert(m_verts.begin(), m_vec1);
-	m_verts.insert(m_verts.begin(), m_vec2);
-	m_verts.insert(m_verts.begin(), m_vec3);
+	
+	std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getVector();
 
 	GLuint vbo = 0;
 	glGenBuffers(1, &vbo);

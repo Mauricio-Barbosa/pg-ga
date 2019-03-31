@@ -10,6 +10,6 @@ c:\users\mauri\source\repos\pg-ga\src\main.cpp(51): warning C4244: '=': conversi
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(52): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(54): warning C4305: 'initializing': truncation from 'double' to 'float'
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(78): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(277): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(281): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(270): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(274): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   pa-ga.vcxproj -> C:\Users\mauri\source\repos\pg-ga\x64\Debug\pg-ga.exe
