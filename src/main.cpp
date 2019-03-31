@@ -6,12 +6,14 @@
 #include <glm/mat4x4.hpp> // glm::mat4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp>
+//#include "Mesh.h"
 
 using namespace std;
 
 #define EXIT_FAILURE -1
 #define EXIT_SUCCESS 0
 
+//Mesh* m = new Mesh;
 
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 10.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -89,9 +91,9 @@ void processInput(GLFWwindow *window)
 		cameraPos += cameraSpeed * cameraFront;
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		cameraPos -= cameraSpeed * cameraFront;
-	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
@@ -153,11 +155,21 @@ int main() {
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
+	/*
 	GLfloat points[] = {
 		0.0f, 0.5f, 0.0f,
+		//0.0f, 1.5f, 0.0f,
 		0.5f, -0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
 	};
+	*/
+	GLfloat points[] = {
+		//m->getN(1)->getFace(0)->getVert(),
+		0.0f, 1.5f, 0.0f,
+		0.5f, -0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+	};
+
 	GLuint vbo = 0;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
