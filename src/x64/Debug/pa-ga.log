@@ -2,14 +2,15 @@
   main.cpp
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(13): warning C4005: 'EXIT_FAILURE': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdlib.h(49): note: see previous definition of 'EXIT_FAILURE'
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(45): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(49): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(50): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(51): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(51): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(52): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(54): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(78): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(270): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(274): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(53): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(55): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(79): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(246): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(286): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(290): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   pa-ga.vcxproj -> C:\Users\mauri\source\repos\pg-ga\x64\Debug\pg-ga.exe

@@ -15,6 +15,7 @@ using namespace std;
 
 Mesh* m = new Mesh;
 
+
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 10.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -99,6 +100,7 @@ void processInput(GLFWwindow *window)
 
 int main() {
 
+	
 
 	const char* vertex_shader =
 		"#version 410\n"
@@ -146,6 +148,7 @@ int main() {
 	cerr << "OpenGL (versão suportada) " << version << endl;
 
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
@@ -162,15 +165,18 @@ int main() {
 		0.5f, -0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
 	};
-	*/
+	
 	GLfloat points[] = {
 		0.0f, 1.5f, 0.0f,
 		0.5f, -0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
 	};
+	*/
 	
+	m->read("sdsd");
 	std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getVector();
-
+	//cout << "m_verts.size: " << m_verts.size() << endl;
+	
 	GLuint vbo = 0;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -181,12 +187,20 @@ int main() {
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-
-	GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+	std::vector<glm::vec3> m_colors = *m->getN(0)->getFace(0)->getColor();
+	//GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+	/*
+	GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 
+		1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f};
+	*/
 	GLuint colorsVBO = 0;
 	glGenBuffers(1, &colorsVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
-	glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(GLfloat), colors, GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(GLfloat), colors, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
+
+
 
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
@@ -228,7 +242,9 @@ int main() {
 		glfwPollEvents();
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * m_verts.size());
+
 
 		static double previousSeconds = glfwGetTime();
 		double currentSeconds = glfwGetTime();
