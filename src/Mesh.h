@@ -39,10 +39,11 @@ public:
 		//myfile.close();
 		//return 0;
 
-		cout << "Sheguei aqui1" << endl;
+		cout << "Cheguei aqui1" << endl;
 		Mesh *mesh = new Mesh;
-		cout << "Sheguei aqui2" << endl;
-		std::ifstream arq("cube.obj");
+		cout << "Cheguei aqui2" << endl;
+		std::ifstream arq(filename);
+		cout << "Cheguei aqui2" << endl;
 		while (!arq.eof()) {
 			string line;
 			getline(arq, line);
@@ -73,54 +74,56 @@ public:
 				string token;
 				sline >> token; // v/t/n, por exemplo
 				//cout << "Valor do token:" << token << endl;
-				stringstream stoken(line);
+				stringstream fileStream(line);
 				string aux;
 				string aux2;
 				string aux3;
 				
-				getline(stoken, aux, 'f');
-				getline(stoken, aux, ' ');
+				getline(fileStream, aux, 'f');
+				getline(fileStream, aux, ' ');
 				//etline(stoken, aux, '/');
-				while (getline(stoken, aux, '\n')) {
-					stringstream stokenaux(aux);
-					cout << "Valor do aux:" << aux << endl;
-					glm::vec2 texts;
-					getline(stokenaux, aux, '/');
-					cout << "Valor do stokeaux:" << aux << endl;
-					cout << "Primeiro getLine com barra:" << aux << endl;
-					texts.x = (std::stoi(aux)) - 1;
-					getline(stokenaux, aux, '/');
-					cout << "Segundo getLine com barra:" << aux << endl;
-					getline(stokenaux, aux, ' ');
-					cout << "Terceiro getLine com barra:" << aux << endl;
-					texts.y = (std::stoi(aux)) - 1;
-					this->g->getFace(0)->insertText(texts.x, texts.y);
-					
-					
+				while (getline(fileStream, aux, '\n')) {
+					stringstream lineStream(aux);
+					while(getline(lineStream, aux2, ' ')){
+						stringstream sectionStream(aux2);
+						cout << "Valor do aux:" << aux2 << endl;
+						glm::vec2 texts;
+						getline(sectionStream, aux2, '/');
+						cout << "Valor do stokeaux:" << aux2 << endl;
+						cout << "Primeiro getLine com barra:" << aux2 << endl;
+						texts.x = (std::stoi(aux2)) - 1;
+						getline(sectionStream, aux2, '/');
+						cout << "Segundo getLine com barra:" << aux2 << endl;
+						getline(sectionStream, aux2);
+						cout << "Terceiro getLine com barra:" << aux2 << endl;
+						texts.y = (std::stoi(aux2)) - 1;
+						this->g->getFace(0)->insertText(texts.x, texts.y);
+					}
+					/*
 					//glm::vec2 texts;
-					getline(stokenaux, aux2, '/');
+					getline(lineStream, aux2, ' ');
 					cout << "Valor do stokeaux:" << aux2 << endl;
 					cout << "Primeiro getLine com barra:" << aux2 << endl;
 					texts.x = (std::stoi(aux2)) - 1;
-					getline(stokenaux, aux2, '/');
+					getline(lineStream, aux2, ' ');
 					cout << "Segundo getLine com barra:" << aux2 << endl;
-					getline(stokenaux, aux2, ' ');
+					getline(lineStream, aux2, ' ');
 					cout << "Terceiro getLine com barra:" << aux2 << endl;
 					texts.y = (std::stoi(aux2)) - 1;
 					this->g->getFace(0)->insertText(texts.x, texts.y);
 
 					//glm::vec2 texts;
-					getline(stokenaux, aux2, '/');
+					getline(lineStream, aux2, ' ');
 					cout << "Valor do stokeaux:" << aux2 << endl;
 					cout << "Primeiro getLine com barra:" << aux2 << endl;
 					texts.x = (std::stoi(aux2)) - 1;
-					getline(stokenaux, aux2, '/');
+					getline(lineStream, aux2, ' ');
 					cout << "Segundo getLine com barra:" << aux2 << endl;
-					getline(stokenaux, aux2, '\n');
+					getline(lineStream, aux2, '\n');
 					cout << "Terceiro getLine com barra:" << aux2 << endl;
 					texts.y = (std::stoi(aux2)) - 1;
 					this->g->getFace(0)->insertText(texts.x, texts.y);
-					
+					*/
 				}
 				// ...
 			}

@@ -173,7 +173,7 @@ int main() {
 	};
 	*/
 	
-	m->read("sdsd");
+	m->read("dodecahedron.obj");
 	std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getFull();
 	///std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getVector();
 	//cout << "m_verts.size: " << m_verts.size() << endl;
