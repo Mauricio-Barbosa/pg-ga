@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <glm/vec3.hpp> // glm::vec3
-
+using namespace std;
 
 class Face {
 private:
@@ -11,6 +11,8 @@ private:
 	std::vector<glm::vec3> m_norms;
 	std::vector<glm::vec2> m_texts;
 
+	std::vector<glm::vec3> m_full;
+	std::vector<glm::vec3> aux2;
 
 public:
 	Face() {
@@ -32,6 +34,11 @@ public:
 		m_color.insert(m_color.begin(), m_vec1);
 	}
 
+	void insertText(int x, int y) {
+		glm::vec2 m_vec1 = glm::vec2(x, y);
+		m_texts.insert(m_texts.end(), m_vec1);
+	}
+
 	glm::vec3* getVert(int n) {
 		return &m_verts[n];
 	}
@@ -46,6 +53,31 @@ public:
 	}
 
 	std::vector<glm::vec3>* getColor() {
-		return &m_color;
+		//return &m_color;
+		
+		for (int i = 0; i < m_texts.size(); i++) {
+			glm::vec3* aux = getVert(m_texts[i].y);
+			aux2.insert(aux2.end(), *aux);
+		}
+		return &aux2;
 	}
+
+	glm::vec2* getText(int n) {
+		return &m_texts[n];
+	}
+
+	std::vector<glm::vec2>* getText() {
+		return &m_texts;
+	}
+	
+	std::vector<glm::vec3>* getFull() {
+		for (int i = 0; i < m_texts.size(); i++) {
+			glm::vec3* aux = getVert(m_texts[i].x);
+			m_full.insert(m_full.end(), *aux);
+			int temp = m_texts[i].x;
+			cout << "Valor do m_texts[i].x: " << temp << endl;
+		}
+		return &m_full;
+	}
+	
 };

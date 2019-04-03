@@ -174,7 +174,8 @@ int main() {
 	*/
 	
 	m->read("sdsd");
-	std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getVector();
+	std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getFull();
+	///std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getVector();
 	//cout << "m_verts.size: " << m_verts.size() << endl;
 	
 	GLuint vbo = 0;
@@ -189,16 +190,17 @@ int main() {
 
 	std::vector<glm::vec3> m_colors = *m->getN(0)->getFace(0)->getColor();
 	//GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-	/*
+	///*
 	GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
 		1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 
 		1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f};
-	*/
+	//*/
 	GLuint colorsVBO = 0;
 	glGenBuffers(1, &colorsVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
 	//glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(GLfloat), colors, GL_STATIC_DRAW);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m->getN(0)->getFace(0)->getColor(), &m_colors[0], GL_STATIC_DRAW);
 
 
 
