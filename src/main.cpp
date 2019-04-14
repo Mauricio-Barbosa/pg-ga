@@ -174,7 +174,7 @@ int main() {
 	*/
 	
 	m->read("sdsd");
-	std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getFull();
+	std::vector<glm::vec3> m_verts = *m->getFull();
 	///std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getVector();
 	//cout << "m_verts.size: " << m_verts.size() << endl;
 	
@@ -188,7 +188,7 @@ int main() {
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-	std::vector<glm::vec3> m_colors = *m->getN(0)->getFace(0)->getColor();
+	std::vector<glm::vec3> m_colors = *m->getColor();
 	//GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
 	///*
 	GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
@@ -242,9 +242,8 @@ int main() {
 	float lastPositionY = 0.0f;
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
-
+		glClearColor(0.2f, 0.8f, 0.2f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * m_verts.size());
 
 

@@ -6,11 +6,11 @@ using namespace std;
 
 class Face {
 private:
-	std::vector<glm::vec3> m_verts; //= glm::vec3(0.f, 0.f, 0.f);
+	//std::vector<glm::vec3> m_verts; //= glm::vec3(0.f, 0.f, 0.f);
+	std::vector<glm::vec3> m_verts;
 	std::vector<glm::vec3> m_color;
 	std::vector<glm::vec3> m_norms;
 	std::vector<glm::vec2> m_texts;
-
 	std::vector<glm::vec3> m_full;
 	std::vector<glm::vec3> aux2;
 
@@ -23,21 +23,39 @@ public:
 		this->insertVert(-0.5f, -0.5f, 0.);
 		
 	}
-
+	/*
 	void insertVert(float x, float y, float z) {
 		glm::vec3 m_vec1 = glm::vec3(x, y, z);
 		m_verts.insert(m_verts.begin(), m_vec1);
 	}
+	*/
+	void insertVert(float x, float y, float z) {
+		glm::vec3 m_vec1 = glm::vec3(x, y, z);
+		m_verts.push_back(m_vec1);
+	}
 
+	/*
 	void insertColor(float x, float y, float z) {
 		glm::vec3 m_vec1 = glm::vec3(x, y, z);
 		m_color.insert(m_color.begin(), m_vec1);
 	}
+	*/
+	void insertColor(float x, float y, float z) {
+		glm::vec3 m_vec1 = glm::vec3(x, y, z);
+		m_color.push_back(m_vec1);
+	}
 
+	/*
 	void insertText(int x, int y) {
 		glm::vec2 m_vec1 = glm::vec2(x, y);
 		m_texts.insert(m_texts.end(), m_vec1);
 	}
+	*/
+	void insertText(int x, int y) {
+		glm::vec2 m_vec1 = glm::vec2(x, y);
+		m_texts.push_back(m_vec1);
+	}
+
 
 	glm::vec3* getVert(int n) {
 		return &m_verts[n];

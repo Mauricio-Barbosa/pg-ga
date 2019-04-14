@@ -1,17 +1,14 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Sabertooth.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   main.cpp
-c:\users\mauri\source\repos\pg-ga\src\face.h(59): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\face.h(75): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\face.h(77): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(91): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(96): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(97): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(104): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(109): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(110): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(116): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(121): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(122): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\face.h(77): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\face.h(93): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\face.h(95): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(89): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(116): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(118): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(176): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(179): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(182): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(13): warning C4005: 'EXIT_FAILURE': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdlib.h(49): note: see previous definition of 'EXIT_FAILURE'
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(45): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
