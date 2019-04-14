@@ -19,7 +19,16 @@ public:
 		return m_face.at(i);
 	}
 	
+	int getFaceSize() {
+		return m_face.size();
+	}
+
 	void addFace(Face* f) {
+		this->m_face.push_back(f);
+	}
+
+	void addFace(vector<int> vertsPosition, vector<int> textsPosition, vector<int> normsPosition) {
+		Face* f = new Face(vertsPosition, textsPosition, normsPosition);
 		this->m_face.push_back(f);
 	}
 

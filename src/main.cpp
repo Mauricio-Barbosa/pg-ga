@@ -15,8 +15,8 @@ using namespace std;
 
 Mesh* m = new Mesh;
 
-
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 10.0f);
+//cameraPos personalizado para que fique à esquerda, à cima
+glm::vec3 cameraPos = glm::vec3(-2.0f, 2.0f, 10.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::mat4 view;
@@ -87,7 +87,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 void processInput(GLFWwindow *window)
 {
-		float cameraSpeed = 0.05f; // adjust accordingly
+		float cameraSpeed = 0.005f; // adjust accordingly
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		cameraPos += cameraSpeed * cameraFront;
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
@@ -173,7 +173,7 @@ int main() {
 	};
 	*/
 	
-	m->read("sdsd");
+	m->read("cube.obj");
 	std::vector<glm::vec3> m_verts = *m->getFull();
 	///std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getVector();
 	//cout << "m_verts.size: " << m_verts.size() << endl;
@@ -188,7 +188,7 @@ int main() {
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-	std::vector<glm::vec3> m_colors = *m->getColor();
+	std::vector<glm::vec3> m_colors = *m->getFakeColor();
 	//GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
 	///*
 	GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
@@ -272,11 +272,11 @@ int main() {
 			N[0] = 0;
 			N[1] = 1;
 		};
-
+		/*
 		if (N[0] != 0 || N[1] != 0) {
 			cout << "N zero:" << N[0] << " N um" << N[1] << "\n";
 		}
-
+		*/
 		double Rin[] = { speedX, speedY };
 
 		double RoutX = (2 * N[0] * (N[0] * Rin[0] + N[1] * Rin[1]) - Rin[0]);
@@ -292,13 +292,13 @@ int main() {
 		}
 
 
-
+		/*
 		cout << "speed X: " << speedX << "\n";
 		cout << "speed Y: " << speedY << "\n";
 		cout << "matrix 12 antes translate: " << lastPositionX << "\n";
 		cout << "matrix 13 antes translate: " << lastPositionY << "\n";
 		cout << "elapsedSeconds: " << elapsedSeconds << "\n";
-
+		*/
 		//Perspectiva
 		
 
@@ -321,9 +321,10 @@ int main() {
 		else { lastPositionX = 0.5f; }
 		*/
 		
+		/*
 		cout << "matrix 12 depois translate: " << lastPositionX << "\n";
 		cout << "matrix 13 depois translate: " << lastPositionY << "\n";
-
+		*/
 		glm::mat4 projection = glm::perspective(glm::radians(fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
 		processInput(window);
