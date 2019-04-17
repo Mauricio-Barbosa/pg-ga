@@ -9,7 +9,9 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "AssetManager.h"
-#include "Time.h"
+#include <SOIL.h>
+
+//https://open.gl/content/code/c3_multitexture.txt
 
 
 using namespace std;
@@ -106,19 +108,22 @@ void processInput(GLFWwindow *window)
 
 int main() {
 	
+	// Load textures
+	GLuint textures[2];
+	glGenTextures(2, textures);
+	glEnable(GL_TEXTURE_2D);
+	int width, height;
+	unsigned char* image;
 
-	//unsigned char* img = SOIL_load_image("image.png", &width, &height, 0, SOIL_LOAD_AUTO);
-	//coreShader.Use();
-	//coreShader.LoadTexture("bin/Images/woodTexture.jpg", "texture1", "woodTexture");
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img->getWidth(), img->getHeight(), 0, GL_BGRA_EXT, GL_UNSIGNED_BYTES, img->getPixels());
+
+	//----------------------
+	float text_maps[] = {
+1.0, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f
+	};
+	//------------------------
 
 	/*
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800000, 800000, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	*/
-
 	const char* vertex_shader =
 		"#version 410\n"
 		"layout(location=0) in vec3 vp;"
@@ -129,7 +134,24 @@ int main() {
 		"   color = vc;"
 		" gl_Position = matrix * vec4 (vp, 1.0);"
 		"}";
-
+		*/
+	const char* vertex_shader = R"glsl(
+    #version 150 core
+    in vec2 position;
+    in vec3 color;
+    in vec2 texcoord;
+out vec4 frag_color;
+    out vec3 Color;
+    out vec2 Texcoord;
+    void main()
+    {
+        Color = color;
+        Texcoord = texcoord;
+        gl_Position = vec4(position, 0.0, 1.0);
+		frag_color = vec4 (color, 1.0);
+    }
+)glsl";
+	/*
 	const char* fragment_shader =
 		"#version 410\n"
 		"in vec3 color;"
@@ -137,6 +159,20 @@ int main() {
 		"void main () {"
 		" frag_color = vec4 (color, 1.0);"
 		"}";
+	*/
+
+	const char* fragment_shader = R"glsl(
+    #version 150 core
+    in vec3 color;
+    in vec2 Texcoord;
+    out vec4 outColor;
+    uniform sampler2D texKitten;
+    uniform sampler2D texPuppy;
+    void main()
+    {
+        outColor = mix(texture(texKitten, Texcoord), texture(texKitten, Texcoord), 0.5);
+    }
+)glsl";
 
 
 	if (!glfwInit()) {
@@ -175,44 +211,28 @@ int main() {
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
-	/*
-	GLfloat points[] = {
-		0.0f, 0.5f, 0.0f,
-		//0.0f, 1.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f,
-	};
-	
-	GLfloat points[] = {
-		0.0f, 1.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f,
-	};
-	*/
-	
-	m->read("icos.obj");
+		m->read("cube.obj");
 	std::vector<glm::vec3> m_verts = *m->getFull();
 
 	GLuint vbo = 0;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_verts.size(), &m_verts[0], GL_STATIC_DRAW);
-
-
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
 	std::vector<glm::vec3> m_colors = *m->getFakeColor();
 
+	/*
 	GLuint colorsVBO = 0;
 	glGenBuffers(1, &colorsVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
-
-
-
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	*/
+	
+
 	//-----------------------------------------------------------------
 
 	// identifica vs e o associa com vertex_shader
@@ -223,16 +243,46 @@ int main() {
 	GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fs, 1, &fragment_shader, NULL);
 	glCompileShader(fs);
+
+
 	// identifica do programa, adiciona partes e faz "linkagem"
 	GLuint shader_programme = glCreateProgram();
 	glAttachShader(shader_programme, fs);
 	glAttachShader(shader_programme, vs);
+
+
 	glLinkProgram(shader_programme);
 
 	glUseProgram(shader_programme);
 	int matrixLocation = glGetUniformLocation(shader_programme, "matrix");
 	glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.f)));
 
+	//-----------------------------------
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textures[0]);
+	image = SOIL_load_image("wall.png", &width, &height, 0, SOIL_LOAD_RGB);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	SOIL_free_image_data(image);
+	glUniform1i(glGetUniformLocation(shader_programme, "texKitten"), 0);
+
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
+	GLuint VBO2 = 0;
+	glGenBuffers(1, &VBO2);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(text_maps), text_maps, GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(1);
+
+
+	//-----------------------------------
+	
 	int i = 0;
 
 	//Associa função mouse callback ao mouse_callback
@@ -249,8 +299,13 @@ int main() {
 		glfwPollEvents();
 		glClearColor(0.2f, 0.8f, 0.2f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * m_verts.size());
+		
 
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textures[2]);
+		glUniform1i(glGetUniformLocation(shader_programme, "basic_texture"), 0);
+
+		glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * m_verts.size());
 
 		static double previousSeconds = glfwGetTime();
 		double currentSeconds = glfwGetTime();
