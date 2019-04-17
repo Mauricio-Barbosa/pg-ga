@@ -7,6 +7,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <stdio.h>
+#include <string.h>
 
 using namespace std;
 
@@ -23,23 +25,16 @@ private:
 	Group* g;
 
 public:
-	Mesh() {
-		g = new Group;
-		groups.push_back(g);
-	}
+	Mesh() {}
 
 	void addFace(int groupPos, vector<int> vertsPosition, vector<int> textsPosition, vector<int> normsPosition) {
 		this->groups.at(groupPos)->addFace(vertsPosition, textsPosition, normsPosition);
 	}
 
-
-
-
 	void insertVert(float x, float y, float z) {
 		glm::vec3 m_vec1 = glm::vec3(x, y, z);
 		m_verts.push_back(m_vec1);
 	}
-
 
 	void insertText(int x, int y) {
 		glm::vec3 m_vec1 = glm::vec3(x, y, 0);
@@ -62,30 +57,7 @@ public:
 		}
 		return &aux2;
 	}
-	
-	/*
-	glm::vec2* getText(int n) {
-		return &m_texts[n];
-	}
 
-	std::vector<glm::vec2>* getText() {
-		return &m_texts;
-	}
-
-	std::vector<glm::vec3>* getVector() {
-	return &m_verts;
-	}
-	*/
-	/*
-	std::vector<glm::vec3>* getFull() {
-		for (int i = 0; i < m_texts.size(); i++) {
-			glm::vec3* aux = getVert(m_texts[i].x);
-			m_full.push_back(*aux);
-			int temp = m_texts[i].x;
-		}
-		return &m_full;
-	}
-	*/
 	std::vector<glm::vec3>* getFull() {
 		for (int i = 0; i < groups.size(); i++) {
 			for (int j = 0; j < this->groups.at(i)->getFaceSize(); j++) {
@@ -115,10 +87,9 @@ public:
 	}
 
 	Mesh *read(std::string filename) {
-		cout << "Cheguei aqui1" << endl;
 		Mesh *mesh = new Mesh;
-		cout << "Cheguei aqui2" << endl;
 		std::ifstream arq(filename);
+		int groupPos = -1;
 
 		while (!arq.eof()) {
 			string line;
@@ -134,9 +105,20 @@ public:
 				sline >> x >> y >> z;
 				this->insertVert(x, y, z);
 			}
+			else if (temp == "g") {
+				Group* g = new Group();
+				this->groups.push_back(g);
+				groupPos ++;
+			}
 			else if (temp == "f") {
 				// implementar lógica de varições
 				// para face: v, v/t/n, v/t e v//n
+
+				if (groupPos == -1) {
+					Group* g = new Group();
+					this->groups.push_back(g);
+					groupPos++;
+				}
 
 				string token;
 				sline >> token; // v/t/n, por exemplo
@@ -162,27 +144,53 @@ public:
 					while (getline(lineStream, aux2, ' ')) {
 						stringstream sectionStream(aux2);
 						
-						getline(sectionStream, aux2, '/');
-						point = (std::stoi(aux2)) - 1;
-						
-						getline(sectionStream, aux2, '/');
-						if(aux2.size() != 0){
-							texture = (std::stoi(aux2)) - 1;
-						} else {
-							texture = 0;
-						}
-						
-						getline(sectionStream, aux2);
-						normal = (std::stoi(aux2)) - 1;
-						
-						//Remover depois que faces extiver funcionando
-						this->insertText(point, normal, texture);
+						if (aux2.find('/') != NULL) {
 
-						vertsPosition.push_back(point);
-						textsPosition.push_back(texture);
-						normsPosition.push_back(normal);
+							getline(sectionStream, aux2, '/');
+							point = (std::stoi(aux2)) - 1;
+
+							getline(sectionStream, aux2, '/');
+							if (aux2.size() != 0) {
+								texture = (std::stoi(aux2)) - 1;
+							}
+							else {
+								texture = 0;
+							}
+
+							getline(sectionStream, aux2);
+							normal = (std::stoi(aux2)) - 1;
+
+							//Remover depois que faces estiver funcionando
+							this->insertText(point, normal, texture);
+
+							vertsPosition.push_back(point);
+							textsPosition.push_back(texture);
+							normsPosition.push_back(normal);
+						}
+						else {
+							getline(sectionStream, aux2, ' ');
+							point = (std::stoi(aux2)) - 1;
+
+							getline(sectionStream, aux2, ' ');
+							if (aux2.size() != 0) {
+								texture = (std::stoi(aux2)) - 1;
+							}
+							else {
+								texture = 0;
+							}
+
+							getline(sectionStream, aux2);
+							normal = (std::stoi(aux2)) - 1;
+
+							//Remover depois que textures extiver funcionando
+							this->insertText(point, normal, texture);
+
+							vertsPosition.push_back(point);
+							textsPosition.push_back(texture);
+							normsPosition.push_back(normal);
+						}
 					}
-					this->addFace(0, vertsPosition, textsPosition, normsPosition);
+					this->addFace(groupPos, vertsPosition, textsPosition, normsPosition);
 
 				}
 			}

@@ -7,6 +7,10 @@
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp>
 #include "Mesh.h"
+#include "Shader.h"
+#include "AssetManager.h"
+#include "Time.h"
+
 
 using namespace std;
 
@@ -20,6 +24,7 @@ glm::vec3 cameraPos = glm::vec3(-2.0f, 2.0f, 10.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::mat4 view;
+Shader coreShader;
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -98,9 +103,21 @@ void processInput(GLFWwindow *window)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
-int main() {
 
+int main() {
 	
+
+	//unsigned char* img = SOIL_load_image("image.png", &width, &height, 0, SOIL_LOAD_AUTO);
+	//coreShader.Use();
+	//coreShader.LoadTexture("bin/Images/woodTexture.jpg", "texture1", "woodTexture");
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img->getWidth(), img->getHeight(), 0, GL_BGRA_EXT, GL_UNSIGNED_BYTES, img->getPixels());
+
+	/*
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800000, 800000, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	*/
 
 	const char* vertex_shader =
 		"#version 410\n"
@@ -173,15 +190,12 @@ int main() {
 	};
 	*/
 	
-	m->read("cube.obj");
+	m->read("icos.obj");
 	std::vector<glm::vec3> m_verts = *m->getFull();
-	///std::vector<glm::vec3> m_verts = *m->getN(0)->getFace(0)->getVector();
-	//cout << "m_verts.size: " << m_verts.size() << endl;
-	
+
 	GLuint vbo = 0;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_verts.size(), &m_verts[0], GL_STATIC_DRAW);
 
 
@@ -189,18 +203,11 @@ int main() {
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
 	std::vector<glm::vec3> m_colors = *m->getFakeColor();
-	//GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-	///*
-	GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-		1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 
-		1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f};
-	//*/
+
 	GLuint colorsVBO = 0;
 	glGenBuffers(1, &colorsVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
-	//glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(GLfloat), colors, GL_STATIC_DRAW);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m->getN(0)->getFace(0)->getColor(), &m_colors[0], GL_STATIC_DRAW);
 
 
 
@@ -228,8 +235,6 @@ int main() {
 
 	int i = 0;
 
-	
-	
 	//Associa função mouse callback ao mouse_callback
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, mouse_callback);
