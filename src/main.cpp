@@ -123,57 +123,53 @@ int main() {
 	};
 	//------------------------
 
-	/*
+	
 	const char* vertex_shader =
 		"#version 410\n"
 		"layout(location=0) in vec3 vp;"
 		"layout(location=1) in vec3 vc;"
 		"uniform mat4 matrix;"
+		//-----------vv
+		//layout(location = 0) in vec3 vertex_position;
+		//layout(location = 1) in vec3 colors;
+		"layout(location = 2) in vec2 texture_mapping;"
+		"out vec2 texture_coordinates;"
+		//out vec3 color_values;
+		//-----------^^
 		"out vec3 color;"
 		"void main () {"
+		//------------vv
+		"texture_coordinates = texture_mapping;"
+		//color_values = colors;
+		//gl_Position = vec4(vertex_position, 1.0);
+		//--------------^^
 		"   color = vc;"
 		" gl_Position = matrix * vec4 (vp, 1.0);"
 		"}";
-		*/
-	const char* vertex_shader = R"glsl(
-    #version 150 core
-    in vec2 position;
-    in vec3 color;
-    in vec2 texcoord;
-out vec4 frag_color;
-    out vec3 Color;
-    out vec2 Texcoord;
-    void main()
-    {
-        Color = color;
-        Texcoord = texcoord;
-        gl_Position = vec4(position, 0.0, 1.0);
-		frag_color = vec4 (color, 1.0);
-    }
-)glsl";
-	/*
+	
+	
 	const char* fragment_shader =
 		"#version 410\n"
+
+		//----------------vv
+		"in vec2 texture_coordinates;"
+		//in vec3 color_values;
+		"uniform sampler2D basic_texture;"
+		//out vec4 frag_color; // final colour of surface
+		//-----------------^^
 		"in vec3 color;"
 		"out vec4 frag_color;"
+		"uniform sampler2D texKitten;"
 		"void main () {"
-		" frag_color = vec4 (color, 1.0);"
+		//------------vv
+		"frag_color = texture(basic_texture, texture_coordinates) * vec4(color_values, 1.0);"
+		//------------^^
+		//" frag_color = vec4 (color, 1.0);"
+
 		"}";
-	*/
+	
 
-	const char* fragment_shader = R"glsl(
-    #version 150 core
-    in vec3 color;
-    in vec2 Texcoord;
-    out vec4 outColor;
-    uniform sampler2D texKitten;
-    uniform sampler2D texPuppy;
-    void main()
-    {
-        outColor = mix(texture(texKitten, Texcoord), texture(texKitten, Texcoord), 0.5);
-    }
-)glsl";
-
+	
 
 	if (!glfwInit()) {
 		cerr << "ERROR: could not start GLFW3" << endl;
@@ -272,11 +268,14 @@ out vec4 frag_color;
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+	glGenerateMipmap(GL_TEXTURE_2D);
 
 	GLuint VBO2 = 0;
 	glGenBuffers(1, &VBO2);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(text_maps), text_maps, GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(text_maps), text_maps, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(1);
 
@@ -302,9 +301,9 @@ out vec4 frag_color;
 		
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textures[2]);
+		glBindTexture(GL_TEXTURE_2D, textures[0]);
 		glUniform1i(glGetUniformLocation(shader_programme, "basic_texture"), 0);
-
+		glBindVertexArray(vao);
 		glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * m_verts.size());
 
 		static double previousSeconds = glfwGetTime();
