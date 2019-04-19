@@ -108,18 +108,15 @@ void processInput(GLFWwindow *window)
 
 int main() {
 	
-	// Load textures
-	GLuint textures[2];
-	glGenTextures(2, textures);
-	glEnable(GL_TEXTURE_2D);
-	int width, height;
-	unsigned char* image;
-
+	
+	
 
 	//----------------------
 	float text_maps[] = {
-1.0, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f
+	1.0, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+	1.0, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f
 	};
 	//------------------------
 
@@ -136,14 +133,14 @@ int main() {
 		"out vec2 texture_coordinates;"
 		//out vec3 color_values;
 		//-----------^^
-		"out vec3 color;"
+		"out vec3 color_values;"
 		"void main () {"
 		//------------vv
 		"texture_coordinates = texture_mapping;"
 		//color_values = colors;
 		//gl_Position = vec4(vertex_position, 1.0);
 		//--------------^^
-		"   color = vc;"
+		"   color_values = vc;"
 		" gl_Position = matrix * vec4 (vp, 1.0);"
 		"}";
 	
@@ -157,9 +154,9 @@ int main() {
 		"uniform sampler2D basic_texture;"
 		//out vec4 frag_color; // final colour of surface
 		//-----------------^^
-		"in vec3 color;"
+		"in vec3 color_values;"
 		"out vec4 frag_color;"
-		"uniform sampler2D texKitten;"
+		//"uniform sampler2D texKitten;"
 		"void main () {"
 		//------------vv
 		"frag_color = texture(basic_texture, texture_coordinates) * vec4(color_values, 1.0);"
@@ -202,17 +199,20 @@ int main() {
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
 
+
+
+
 	//DADOS-------------------------------
-	GLuint vao = 0;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	GLuint VAO = 0;
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
 
 		m->read("cube.obj");
 	std::vector<glm::vec3> m_verts = *m->getFull();
 
-	GLuint vbo = 0;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	GLuint VBO = 0;
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_verts.size(), &m_verts[0], GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
@@ -255,18 +255,45 @@ int main() {
 
 	//-----------------------------------
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	image = SOIL_load_image("wall.png", &width, &height, 0, SOIL_LOAD_RGB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	SOIL_free_image_data(image);
-	glUniform1i(glGetUniformLocation(shader_programme, "texKitten"), 0);
+	// Load textures
+	GLuint textures;
+	glGenTextures(1, &textures);
+	glEnable(GL_TEXTURE_2D);
+	int width, height;
+	unsigned char* image;
 
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textures);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	image = SOIL_load_image("wall.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+
+	if (image) {
+		cout << "image loaded sucesfully:" << endl;
+		cout << "image width = " << width << endl;
+		cout << "image height = " << height << endl;
+	}
+	else {
+		cout << "failed to load image" << endl;
+	}
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glUniform1i(glGetUniformLocation(shader_programme, "basic_texture"), 0);
+
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+
+	//statement abaixo deixa preto
+	//glBindTexture(GL_TEXTURE_2D, 0);
+
+
+
+	
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -275,14 +302,12 @@ int main() {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(text_maps), text_maps, GL_STATIC_DRAW);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(1);
 
 
 	//-----------------------------------
-	
-	int i = 0;
+
 
 	//Associa função mouse callback ao mouse_callback
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -299,13 +324,14 @@ int main() {
 		glClearColor(0.2f, 0.8f, 0.2f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-
+		/*
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textures[0]);
 		glUniform1i(glGetUniformLocation(shader_programme, "basic_texture"), 0);
-		glBindVertexArray(vao);
+		glBindVertexArray(VAO);
+		*/
 		glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * m_verts.size());
-
+		
 		static double previousSeconds = glfwGetTime();
 		double currentSeconds = glfwGetTime();
 		double elapsedSeconds = currentSeconds - previousSeconds;
@@ -394,7 +420,7 @@ int main() {
 
 		glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection*view*t2));
 		//glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, matrix);
-		// Define vao como verte array atual
+		// Define VAO como verte array atual
 		// desenha pontos a partir do p0 e 3 no total do VAO atual com o shader    
 		// atualmente em uso  
 		glfwSwapBuffers(window);
