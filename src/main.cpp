@@ -113,10 +113,12 @@ int main() {
 
 	//----------------------
 	float text_maps[] = {
+		1, 0
+		
+		/*1.0, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+	1.0f, 0.0f, 1.0f, 0.0f, 1.0f, -1.0f,
 	1.0, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-	0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-	1.0, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-	0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f
+	0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f*/
 	};
 	//------------------------
 
@@ -207,8 +209,17 @@ int main() {
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-		m->read("cube.obj");
-	std::vector<glm::vec3> m_verts = *m->getFull();
+	m->read("cube2.obj");
+	std::vector<glm::vec3> m_verts = *m->getFullVertices();
+	//std::vector<glm::vec3> m_colors = *m->getFakeColor();
+	std::vector<glm::vec3> m_colors = *m->getFullVertices();
+	for (int i = 0; i < m_colors.size(); i++) {
+		m_colors.at(i).x = 1;
+		m_colors.at(i).y = 1;
+		m_colors.at(i).z = 1;
+	}
+	std::vector<glm::vec2> m_textures = *m->getFullTextures();
+	cout << "Texture vector size" << m_textures.size() << endl;
 
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO);
@@ -217,7 +228,7 @@ int main() {
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-	std::vector<glm::vec3> m_colors = *m->getFakeColor();
+	
 
 	/*
 	GLuint colorsVBO = 0;
@@ -266,11 +277,11 @@ int main() {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textures);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	image = SOIL_load_image("wall.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("wallhigh.jpg", &width, &height, 0, SOIL_LOAD_RGB);
 
 	if (image) {
 		cout << "image loaded sucesfully:" << endl;
@@ -285,11 +296,25 @@ int main() {
 	SOIL_free_image_data(image);
 	glUniform1i(glGetUniformLocation(shader_programme, "basic_texture"), 0);
 
+	//glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	//glEnableVertexAttribArray(2);
+
+	/*
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
+	*/
 
-	//statement abaixo deixa preto
-	//glBindTexture(GL_TEXTURE_2D, 0);
+	
+	//VBO de texturas
+	GLuint VBO3 = 0;
+	glGenBuffers(1, &VBO3);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO3);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(text_maps), text_maps, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * m_textures.size(), &m_textures[0], GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sizeof(text_maps), &text_maps[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(2);
+	
 
 
 
@@ -297,14 +322,17 @@ int main() {
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 
+	//VBO de cores
 	GLuint VBO2 = 0;
 	glGenBuffers(1, &VBO2);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(text_maps), text_maps, GL_STATIC_DRAW);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sizeof(text_maps), &text_maps[0], GL_STATIC_DRAW);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(1);
 
+	
 
 	//-----------------------------------
 

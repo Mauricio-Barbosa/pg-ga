@@ -186,6 +186,9 @@ public:
 							getline(sectionStream, aux2);
 							normal = (std::stoi(aux2)) - 1;
 
+							//Remover depois que faces estiver funcionando
+							//this->insertText(point, normal, texture);
+
 							vertsPosition.push_back(point);
 							textsPosition.push_back(texture);
 							normsPosition.push_back(normal);
@@ -204,6 +207,9 @@ public:
 
 							getline(sectionStream, aux2);
 							normal = (std::stoi(aux2)) - 1;
+
+							//Remover depois que textures extiver funcionando
+							//this->insertText(point, normal, texture);
 
 							vertsPosition.push_back(point);
 							textsPosition.push_back(texture);

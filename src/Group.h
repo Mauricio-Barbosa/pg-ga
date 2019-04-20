@@ -10,10 +10,7 @@ private:
 	std::vector<Face*> m_face;
 	
 public:
-	Group() {
-		//Face* face = new Face();
-		//m_face.insert(m_face.begin(), face);
-	}
+	Group() {}
 
 	Face* getFace(int i) {
 		return m_face.at(i);
