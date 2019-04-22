@@ -11,18 +11,18 @@ c:\users\mauri\source\repos\pg-ga\src\mesh.h(61): warning C4244: 'argument': con
 c:\users\mauri\source\repos\pg-ga\src\mesh.h(72): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\mesh.h(74): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\mesh.h(76): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(90): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(92): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(94): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(176): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(180): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(187): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(192): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(193): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(194): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(198): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(202): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\mesh.h(209): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(96): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(98): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(100): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(182): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(186): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(193): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(195): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(196): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(197): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(201): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(205): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\mesh.h(212): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\mesh.h(214): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\mesh.h(215): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\mesh.h(216): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
@@ -36,9 +36,9 @@ c:\users\mauri\source\repos\pg-ga\src\main.cpp(59): warning C4244: '=': conversi
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(60): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(62): warning C4305: 'initializing': truncation from 'double' to 'float'
 c:\users\mauri\source\repos\pg-ga\src\main.cpp(86): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(361): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(400): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\mauri\source\repos\pg-ga\src\main.cpp(404): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(369): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(409): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\mauri\source\repos\pg-ga\src\main.cpp(413): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library

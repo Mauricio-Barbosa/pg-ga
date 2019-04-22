@@ -77,9 +77,15 @@ public:
 				m_full.push_back(aux1);
 			}
 		}
-
 		return &m_full;
 	}
+
+	//Retorna o m_full sem adicionar mais elementos nele.
+	//Usar temporariamente até que leitura de cores seja definida.
+	std::vector<glm::vec3>* getFullVerticesColor() {
+		return &m_full;
+	}
+
 	
 	std::vector<glm::vec2>* getFullTextures() {
 		

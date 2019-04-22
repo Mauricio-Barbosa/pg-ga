@@ -212,7 +212,7 @@ int main() {
 	m->read("cube2.obj");
 	std::vector<glm::vec3> m_verts = *m->getFullVertices();
 	//std::vector<glm::vec3> m_colors = *m->getFakeColor();
-	std::vector<glm::vec3> m_colors = *m->getFullVertices();
+	std::vector<glm::vec3> m_colors = *m->getFullVerticesColor();
 	for (int i = 0; i < m_colors.size(); i++) {
 		m_colors.at(i).x = 1;
 		m_colors.at(i).y = 1;
@@ -220,6 +220,7 @@ int main() {
 	}
 	std::vector<glm::vec2> m_textures = *m->getFullTextures();
 	cout << "Texture vector size" << m_textures.size() << endl;
+
 
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO);
@@ -281,7 +282,7 @@ int main() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	image = SOIL_load_image("wallhigh.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("wall.png", &width, &height, 0, SOIL_LOAD_RGB);
 
 	if (image) {
 		cout << "image loaded sucesfully:" << endl;
@@ -358,7 +359,15 @@ int main() {
 		glUniform1i(glGetUniformLocation(shader_programme, "basic_texture"), 0);
 		glBindVertexArray(VAO);
 		*/
-		glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * m_verts.size());
+		/*
+		cout << "Size do vec3 multiplicado pelo size do vert dividido por 12: " << sizeof(glm::vec3) * (m_verts.size()/12) << endl;
+		cout << "Size do vec3 multiplicado pelo size do vert: " << sizeof(glm::vec3) * (m_verts.size()) << endl;
+		cout << "Size do vec3: " << sizeof(glm::vec3) << endl;
+		*/
+		//glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * (m_verts.size()-32));
+		//glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * (m_verts.size()/12));
+		glDrawArrays(GL_TRIANGLES, 0, m_verts.size());
+		//glDrawArrays(GL_TRIANGLES, 0, 48);
 		
 		static double previousSeconds = glfwGetTime();
 		double currentSeconds = glfwGetTime();
