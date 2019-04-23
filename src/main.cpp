@@ -107,7 +107,22 @@ void processInput(GLFWwindow *window)
 
 
 int main() {
+	
+	
+	
 
+	//----------------------
+	float text_maps[] = {
+		1, 0
+		
+		/*1.0, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+	1.0f, 0.0f, 1.0f, 0.0f, 1.0f, -1.0f,
+	1.0, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f*/
+	};
+	//------------------------
+
+	
 	const char* vertex_shader =
 		"#version 410\n"
 		"layout(location=0) in vec3 vp;"
@@ -151,7 +166,9 @@ int main() {
 		//" frag_color = vec4 (color, 1.0);"
 
 		"}";
+	
 
+	
 
 	if (!glfwInit()) {
 		cerr << "ERROR: could not start GLFW3" << endl;
@@ -184,12 +201,14 @@ int main() {
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
 
-	//DADOS
+
+
+
+	//DADOS-------------------------------
 	GLuint VAO = 0;
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	
 	m->read("cube2.obj");
 	std::vector<glm::vec3> m_verts = *m->getFullVertices();
 	//std::vector<glm::vec3> m_colors = *m->getFakeColor();
@@ -202,13 +221,28 @@ int main() {
 	std::vector<glm::vec2> m_textures = *m->getFullTextures();
 	cout << "Texture vector size" << m_textures.size() << endl;
 
-	GLuint vertsVBO = 0;
-	glGenBuffers(1, &vertsVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
+
+	GLuint VBO = 0;
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_verts.size(), &m_verts[0], GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
 	
+
+	/*
+	GLuint colorsVBO = 0;
+	glGenBuffers(1, &colorsVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	*/
+	
+
+	//-----------------------------------------------------------------
+
 	// identifica vs e o associa com vertex_shader
 	GLuint vs = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vs, 1, &vertex_shader, NULL);
@@ -223,10 +257,15 @@ int main() {
 	GLuint shader_programme = glCreateProgram();
 	glAttachShader(shader_programme, fs);
 	glAttachShader(shader_programme, vs);
+
+
 	glLinkProgram(shader_programme);
+
 	glUseProgram(shader_programme);
 	int matrixLocation = glGetUniformLocation(shader_programme, "matrix");
 	glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.f)));
+
+	//-----------------------------------
 
 	// Load textures
 	GLuint textures;
@@ -235,9 +274,10 @@ int main() {
 	int width, height;
 	unsigned char* image;
 
-	//Carregamento de imagem
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textures);
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -257,29 +297,41 @@ int main() {
 	SOIL_free_image_data(image);
 	glUniform1i(glGetUniformLocation(shader_programme, "basic_texture"), 0);
 
+	//glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	//glEnableVertexAttribArray(2);
 
-	//VBO de cores
-	GLuint colorsVBO = 0;
-	glGenBuffers(1, &colorsVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(text_maps), text_maps, GL_STATIC_DRAW);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sizeof(text_maps), &text_maps[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(1);
+	/*
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+	*/
 
+	
 	//VBO de texturas
-	GLuint texturesVBO = 0;
-	glGenBuffers(1, &texturesVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, texturesVBO);
+	GLuint VBO3 = 0;
+	glGenBuffers(1, &VBO3);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO3);
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(text_maps), text_maps, GL_STATIC_DRAW);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * m_textures.size(), &m_textures[0], GL_STATIC_DRAW);
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sizeof(text_maps), &text_maps[0], GL_STATIC_DRAW);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(2);
-	glGenerateMipmap(GL_TEXTURE_2D);
+	
+
+
 
 	
+
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	//VBO de cores
+	GLuint VBO2 = 0;
+	glGenBuffers(1, &VBO2);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(text_maps), text_maps, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sizeof(text_maps), &text_maps[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(1);
 
 	
 
@@ -307,9 +359,15 @@ int main() {
 		glUniform1i(glGetUniformLocation(shader_programme, "basic_texture"), 0);
 		glBindVertexArray(VAO);
 		*/
-
+		/*
+		cout << "Size do vec3 multiplicado pelo size do vert dividido por 12: " << sizeof(glm::vec3) * (m_verts.size()/12) << endl;
+		cout << "Size do vec3 multiplicado pelo size do vert: " << sizeof(glm::vec3) * (m_verts.size()) << endl;
+		cout << "Size do vec3: " << sizeof(glm::vec3) << endl;
+		*/
+		//glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * (m_verts.size()-32));
+		//glDrawArrays(GL_TRIANGLES, 0, sizeof(glm::vec3) * (m_verts.size()/12));
 		glDrawArrays(GL_TRIANGLES, 0, m_verts.size());
-
+		//glDrawArrays(GL_TRIANGLES, 0, 48);
 		
 		static double previousSeconds = glfwGetTime();
 		double currentSeconds = glfwGetTime();
