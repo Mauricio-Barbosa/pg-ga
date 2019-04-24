@@ -16,8 +16,53 @@
 
 using namespace std;
 
-#define EXIT_FAILURE -1
-#define EXIT_SUCCESS 0
+//#define EXIT_FAILURE -1
+//#define EXIT_SUCCESS 0
+
+const char* vertex_shader =
+"#version 410\n"
+"layout(location=0) in vec3 vp;"
+"layout(location=1) in vec3 vc;"
+"uniform mat4 matrix;"
+//-----------vv
+//layout(location = 0) in vec3 vertex_position;
+//layout(location = 1) in vec3 colors;
+"layout(location = 2) in vec2 texture_mapping;"
+"out vec2 texture_coordinates;"
+//out vec3 color_values;
+//-----------^^
+"out vec3 color_values;"
+"void main () {"
+//------------vv
+"texture_coordinates = texture_mapping;"
+//color_values = colors;
+//gl_Position = vec4(vertex_position, 1.0);
+//--------------^^
+"   color_values = vc;"
+" gl_Position = matrix * vec4 (vp, 1.0);"
+"}";
+
+
+const char* fragment_shader =
+"#version 410\n"
+
+//----------------vv
+"in vec2 texture_coordinates;"
+//in vec3 color_values;
+"uniform sampler2D basic_texture;"
+//out vec4 frag_color; // final colour of surface
+//-----------------^^
+"in vec3 color_values;"
+"out vec4 frag_color;"
+//"uniform sampler2D texKitten;"
+"void main () {"
+//------------vv
+"frag_color = texture(basic_texture, texture_coordinates) * vec4(color_values, 1.0);"
+//------------^^
+//" frag_color = vec4 (color, 1.0);"
+
+"}";
+
 
 Mesh* m = new Mesh;
 
@@ -27,6 +72,7 @@ glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::mat4 view;
 Shader coreShader;
+int activeGroup = 0;
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -103,54 +149,39 @@ void processInput(GLFWwindow *window)
 		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		m->getGroup(activeGroup)->increaseX();
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		m->getGroup(activeGroup)->decreaseX();
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		m->getGroup(activeGroup)->increaseY();
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		m->getGroup(activeGroup)->decreaseY();
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+		m->getGroup(activeGroup)->increaseZ();
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+		m->getGroup(activeGroup)->decreaseZ();
+	if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS)
+		activeGroup = 0;
+	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+		activeGroup = 1;
+	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+		activeGroup = 2;
+	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+		activeGroup = 3;
+	if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+		activeGroup = 4;
+	if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
+		activeGroup = 5;
+	if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
+		activeGroup = 6;
+	if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS)
+		activeGroup = 7;
+
 }
 
 
 int main() {
-
-	const char* vertex_shader =
-		"#version 410\n"
-		"layout(location=0) in vec3 vp;"
-		"layout(location=1) in vec3 vc;"
-		"uniform mat4 matrix;"
-		//-----------vv
-		//layout(location = 0) in vec3 vertex_position;
-		//layout(location = 1) in vec3 colors;
-		"layout(location = 2) in vec2 texture_mapping;"
-		"out vec2 texture_coordinates;"
-		//out vec3 color_values;
-		//-----------^^
-		"out vec3 color_values;"
-		"void main () {"
-		//------------vv
-		"texture_coordinates = texture_mapping;"
-		//color_values = colors;
-		//gl_Position = vec4(vertex_position, 1.0);
-		//--------------^^
-		"   color_values = vc;"
-		" gl_Position = matrix * vec4 (vp, 1.0);"
-		"}";
-	
-	
-	const char* fragment_shader =
-		"#version 410\n"
-
-		//----------------vv
-		"in vec2 texture_coordinates;"
-		//in vec3 color_values;
-		"uniform sampler2D basic_texture;"
-		//out vec4 frag_color; // final colour of surface
-		//-----------------^^
-		"in vec3 color_values;"
-		"out vec4 frag_color;"
-		//"uniform sampler2D texKitten;"
-		"void main () {"
-		//------------vv
-		"frag_color = texture(basic_texture, texture_coordinates) * vec4(color_values, 1.0);"
-		//------------^^
-		//" frag_color = vec4 (color, 1.0);"
-
-		"}";
 
 
 	if (!glfwInit()) {
@@ -191,6 +222,10 @@ int main() {
 
 	
 	m->read("cube2.obj");
+	//m->read("cube2.obj");
+
+
+	/*
 	std::vector<glm::vec3> m_verts = *m->getFullVertices();
 	//std::vector<glm::vec3> m_colors = *m->getFakeColor();
 	std::vector<glm::vec3> m_colors = *m->getFullVerticesColor();
@@ -208,7 +243,7 @@ int main() {
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_verts.size(), &m_verts[0], GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	
+	*/
 	// identifica vs e o associa com vertex_shader
 	GLuint vs = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vs, 1, &vertex_shader, NULL);
@@ -227,14 +262,14 @@ int main() {
 	glUseProgram(shader_programme);
 	int matrixLocation = glGetUniformLocation(shader_programme, "matrix");
 	glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.f)));
-
+	
 	// Load textures
 	GLuint textures;
 	glGenTextures(1, &textures);
 	glEnable(GL_TEXTURE_2D);
 	int width, height;
 	unsigned char* image;
-
+	/*
 	//Carregamento de imagem
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textures);
@@ -280,7 +315,7 @@ int main() {
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	
-
+	*/
 	
 
 	//-----------------------------------
@@ -290,7 +325,13 @@ int main() {
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, mouse_callback);
 
+	int incremento = 0;
+
 	glfwSetScrollCallback(window, scroll_callback);
+	for (int i = 0; i < m->getGroupSize(); i++) {
+		m->getGroup(i)->inicializacao(m->getTextures(), m->getVerts());
+	}
+
 
 	float speedX = 1.0f;
 	float lastPositionX = 0.0f;
@@ -301,23 +342,13 @@ int main() {
 		glClearColor(0.2f, 0.8f, 0.2f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		/*
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textures[0]);
-		glUniform1i(glGetUniformLocation(shader_programme, "basic_texture"), 0);
-		glBindVertexArray(VAO);
-		*/
 
-		glDrawArrays(GL_TRIANGLES, 0, m_verts.size());
-
-		
 		static double previousSeconds = glfwGetTime();
 		double currentSeconds = glfwGetTime();
 		double elapsedSeconds = currentSeconds - previousSeconds;
 		previousSeconds = currentSeconds;
 
-
-
+		
 		double N[] = { 0, 0 };
 
 		if (fabs(lastPositionX) >= 0.5f && speedX > 0) {
@@ -356,48 +387,37 @@ int main() {
 		}
 
 
-		/*
-		cout << "speed X: " << speedX << "\n";
-		cout << "speed Y: " << speedY << "\n";
-		cout << "matrix 12 antes translate: " << lastPositionX << "\n";
-		cout << "matrix 13 antes translate: " << lastPositionY << "\n";
-		cout << "elapsedSeconds: " << elapsedSeconds << "\n";
-		*/
-		//Perspectiva
+		for (int i = 0; i < m->getGroupSize(); i++) {
+		
+			if (i == activeGroup) {
+				m->getGroup(i)->selectColor();
+			}
+			else {
+				m->getGroup(i)->noColor();
+			}
+		
+		m->getGroup(i)->draw();
 		
 
-		glm::mat4 t2 = glm::translate(glm::mat4(1.f), glm::vec3((elapsedSeconds * speedX + lastPositionX), (elapsedSeconds * speedY + lastPositionY), 0.f));
+		glm::mat4 t2;
+		//if (incremento % 2 == 0) {
+			//t2 = glm::translate(glm::mat4(1.f), glm::vec3((elapsedSeconds * speedX + lastPositionX), (elapsedSeconds * speedY + lastPositionY), 0.f));
+		//}
+		//else {
+		//t2 = glm::translate(glm::mat4(1.f), glm::vec3((elapsedSeconds * speedX + m->getGroup(activeGroup)->getlastPositionX()), (elapsedSeconds * speedY + m->getGroup(activeGroup)->getlastPositionY()), 0.f));
+		t2 = glm::translate(glm::mat4(1.f), glm::vec3(m->getGroup(i)->getlastPositionX(), m->getGroup(i)->getlastPositionY(), m->getGroup(i)->getlastPositionZ() ));
+		//}
 		//glm::vec4 vector(0.f, 0.f, 1.f, 1.f);
 		glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
 		glm::vec4 transformedVector = t2 * vector;
-		
-		
-		/*
-		if (!(transformedVector[1] >= 0.5f)) {
-			lastPositionY = transformedVector[1];
-		}
-		else { lastPositionY = 0.5f; }
-
-
-		if (!(transformedVector[0] >= 0.5f)) {
-			lastPositionX = transformedVector[0];
-		}
-		else { lastPositionX = 0.5f; }
-		*/
-		
-		/*
-		cout << "matrix 12 depois translate: " << lastPositionX << "\n";
-		cout << "matrix 13 depois translate: " << lastPositionY << "\n";
-		*/
 		glm::mat4 projection = glm::perspective(glm::radians(fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
+
+
 		processInput(window);
-		
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-
-
-
 		glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection*view*t2));
+		}
 		//glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, matrix);
 		// Define VAO como verte array atual
 		// desenha pontos a partir do p0 e 3 no total do VAO atual com o shader    

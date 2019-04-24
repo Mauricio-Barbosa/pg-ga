@@ -19,10 +19,11 @@ private:
 	std::vector<glm::vec3> m_norms;
 	std::vector<glm::vec2> m_texts;
 	std::vector<glm::vec3> m_full;
+	std::vector<glm::vec2> m_fullText;
 	//aux2 é utilizado para armazenar temporariament o vec3 de float montado com base nas faces
 	//quando o método getFull é chamado
 	std::vector<glm::vec3> aux2;
-	std::vector<glm::vec2> m_fullText;
+	
 	Group* g;
 
 public:
@@ -33,6 +34,26 @@ public:
 		//cout << "Textura1:" << textsPosition[0] << endl;
 		//cout << "Textura2:" << textsPosition[1] << endl;
 		//cout << "Textura2:" << textsPosition[2] << endl;
+	}
+
+	Group* getGroup(int group) {
+		return this->groups.at(group);
+	}
+
+	std::vector<glm::vec3> getVerts() {
+		return m_verts;
+	}
+
+	int getGroupSize() {
+		return this->groups.size();
+	}
+
+	std::vector<glm::vec3> getNorms() {
+		return m_norms;
+	}
+
+	std::vector<glm::vec2> getTextures() {
+		return m_texts;
 	}
 
 	void insertVert(float x, float y, float z) {
