@@ -17,11 +17,13 @@ private:
 	std::vector<Group*> groups;
 	std::vector<glm::vec3> m_verts;
 	std::vector<glm::vec3> m_norms;
-	std::vector<glm::vec3> m_texts;
+	std::vector<glm::vec2> m_texts;
 	std::vector<glm::vec3> m_full;
+	std::vector<glm::vec2> m_fullText;
 	//aux2 é utilizado para armazenar temporariament o vec3 de float montado com base nas faces
 	//quando o método getFull é chamado
 	std::vector<glm::vec3> aux2;
+	
 	Group* g;
 
 public:
@@ -29,6 +31,29 @@ public:
 
 	void addFace(int groupPos, vector<int> vertsPosition, vector<int> textsPosition, vector<int> normsPosition) {
 		this->groups.at(groupPos)->addFace(vertsPosition, textsPosition, normsPosition);
+		//cout << "Textura1:" << textsPosition[0] << endl;
+		//cout << "Textura2:" << textsPosition[1] << endl;
+		//cout << "Textura2:" << textsPosition[2] << endl;
+	}
+
+	Group* getGroup(int group) {
+		return this->groups.at(group);
+	}
+
+	std::vector<glm::vec3> getVerts() {
+		return m_verts;
+	}
+
+	int getGroupSize() {
+		return this->groups.size();
+	}
+
+	std::vector<glm::vec3> getNorms() {
+		return m_norms;
+	}
+
+	std::vector<glm::vec2> getTextures() {
+		return m_texts;
 	}
 
 	void insertVert(float x, float y, float z) {
@@ -37,50 +62,69 @@ public:
 	}
 
 	void insertText(int x, int y) {
-		glm::vec3 m_vec1 = glm::vec3(x, y, 0);
+		glm::vec2 m_vec1 = glm::vec2(x, y);
 		m_texts.push_back(m_vec1);
 	}
 
+	/*
 	void insertText(int x, int y, int z) {
-		glm::vec3 m_vec1 = glm::vec3(x, y, z);
+		glm::vec2 m_vec1 = glm::vec3(x, y, z);
 		m_texts.push_back(m_vec1);
 	}
+	*/
 	
 	glm::vec3* getVert(int n) {
 		return &m_verts[n];
 	}
 
 	std::vector<glm::vec3>* getFakeColor() {
-		for (int i = 0; i < m_texts.size(); i++) {
-			glm::vec3* aux = getVert(m_texts[i].y);
+		for (int i = 0; i < m_verts.size(); i++) {
+			glm::vec3* aux = getVert(m_verts[i].y);
 			aux2.push_back(*aux);
 		}
 		return &aux2;
 	}
 
-	std::vector<glm::vec3>* getFull() {
+	std::vector<glm::vec3>* getFullVertices() {
 		for (int i = 0; i < groups.size(); i++) {
 			for (int j = 0; j < this->groups.at(i)->getFaceSize(); j++) {
 				glm::vec3 aux = groups.at(i)->getFace(j)->getVertVec3();
-				//int textPos = groups.at(i)->getFace(j)->getVert(1);
-				//int normPos = groups.at(i)->getFace(j)->getVert(2);
-				glm::vec3 aux1; 
-				//glm::vec3 aux2;
-				//glm::vec3 aux3;
+				glm::vec3 aux1;  //vertice
 				aux1 = this->m_verts.at(aux.x);
 				m_full.push_back(aux1);
 				aux1 = this->m_verts.at(aux.y);
 				m_full.push_back(aux1);
 				aux1 = this->m_verts.at(aux.z);
 				m_full.push_back(aux1);
-				//aux2 = this->m_texts.at(textPos);
-				//m_full.push_back(aux2);
-				//aux3 = this->m_verts.at(normPos);
-				//m_full.push_back(aux3);
 			}
 		}
 		return &m_full;
 	}
+
+	//Retorna o m_full sem adicionar mais elementos nele.
+	//Usar temporariamente até que leitura de cores seja definida.
+	std::vector<glm::vec3>* getFullVerticesColor() {
+		return &m_full;
+	}
+
+	
+	std::vector<glm::vec2>* getFullTextures() {
+		
+		for (int i = 0; i < groups.size(); i++) {
+			for (int j = 0; j < this->groups.at(i)->getFaceSize(); j++) {
+				glm::vec3 text = groups.at(i)->getFace(j)->getTextVec3();
+				glm::vec2 texAux;
+				texAux = this->m_texts.at(text.x);
+				m_fullText.push_back(texAux);
+				texAux = this->m_texts.at(text.y);
+				m_fullText.push_back(texAux);
+				texAux = this->m_texts.at(text.z);
+				m_fullText.push_back(texAux);
+			}
+		}
+		return &m_fullText;
+	}
+	
 	
 	Group* getN(int n) {
 		return groups[n];
@@ -105,6 +149,15 @@ public:
 				sline >> x >> y >> z;
 				this->insertVert(x, y, z);
 			}
+			else if (temp == "vt") {
+				// ler vértice ...
+				float x, y;
+				sline >> x >> y;
+				glm::vec2 textTemp = glm::vec2(x, y);
+				this->m_texts.push_back(textTemp);
+				//this->insertText(x, y);
+			}
+
 			else if (temp == "g") {
 				Group* g = new Group();
 				this->groups.push_back(g);
@@ -160,9 +213,6 @@ public:
 							getline(sectionStream, aux2);
 							normal = (std::stoi(aux2)) - 1;
 
-							//Remover depois que faces estiver funcionando
-							this->insertText(point, normal, texture);
-
 							vertsPosition.push_back(point);
 							textsPosition.push_back(texture);
 							normsPosition.push_back(normal);
@@ -181,9 +231,6 @@ public:
 
 							getline(sectionStream, aux2);
 							normal = (std::stoi(aux2)) - 1;
-
-							//Remover depois que textures extiver funcionando
-							this->insertText(point, normal, texture);
 
 							vertsPosition.push_back(point);
 							textsPosition.push_back(texture);

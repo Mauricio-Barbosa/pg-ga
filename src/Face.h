@@ -6,14 +6,12 @@ using namespace std;
 
 class Face {
 private:
-	//std::vector<glm::vec3> m_verts; //= glm::vec3(0.f, 0.f, 0.f);
 	std::vector<int> vertsPosition;
 	std::vector<int> textsPosition;
 	std::vector<int> normsPosition;
 	
 
 public:
-	//Face() {}
 	Face(std::vector<int> vertsPosition, std::vector<int> textsPosition, std::vector<int> normsPosition) {
 		this->vertsPosition = vertsPosition;
 		this->textsPosition = textsPosition;
@@ -26,6 +24,14 @@ public:
 		vec.y = this->vertsPosition.at(1);
 		vec.z = this->vertsPosition.at(2);
 		return vec;
+	}
+
+	glm::vec3 getTextVec3() {
+		glm::vec3 text;
+		text.x = this->textsPosition.at(0);
+		text.y = this->textsPosition.at(1);
+		text.z = this->textsPosition.at(2);
+		return text;
 	}
 
 };
