@@ -7,8 +7,6 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-//#include <stdio.h>
-//#include <string.h>
 
 using namespace std;
 
@@ -32,9 +30,6 @@ public:
 
 	void addFace(int groupPos, vector<int> vertsPosition, vector<int> textsPosition, vector<int> normsPosition) {
 		this->groups.at(groupPos)->addFace(vertsPosition, textsPosition, normsPosition);
-		//cout << "Textura1:" << textsPosition[0] << endl;
-		//cout << "Textura2:" << textsPosition[1] << endl;
-		//cout << "Textura2:" << textsPosition[2] << endl;
 	}
 
 	Group* getGroup(int group) {
@@ -79,13 +74,6 @@ public:
 		m_texts.push_back(m_vec1);
 	}
 
-	/*
-	void insertText(int x, int y, int z) {
-		glm::vec2 m_vec1 = glm::vec3(x, y, z);
-		m_texts.push_back(m_vec1);
-	}
-	*/
-	
 	glm::vec3* getVert(int n) {
 		return &m_verts[n];
 	}
@@ -114,7 +102,6 @@ public:
 		return &m_full;
 	}
 
-
 	std::vector<glm::vec3>* getFullNormals() {
 		for (int i = 0; i < groups.size(); i++) {
 			for (int j = 0; j < this->groups.at(i)->getFaceSize(); j++) {
@@ -136,7 +123,6 @@ public:
 	std::vector<glm::vec3>* getFullVerticesColor() {
 		return &m_full;
 	}
-
 	
 	std::vector<glm::vec2>* getFullTextures() {
 		
@@ -154,7 +140,6 @@ public:
 		}
 		return &m_fullText;
 	}
-	
 	
 	Group* getN(int n) {
 		return groups[n];
@@ -276,10 +261,6 @@ public:
 					this->addFace(groupPos, vertsPosition, textsPosition, normsPosition);
 
 				}
-			}
-			else {// else-if
-				  // Verificar outras possibilidades:
-				  // g, vn, ...
 			}
 		}
 		return mesh;
