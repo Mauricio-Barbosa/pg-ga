@@ -20,6 +20,7 @@ private:
 	std::vector<glm::vec2> m_texts;
 	std::vector<glm::vec3> m_full;
 	std::vector<glm::vec2> m_fullText;
+	std::vector<glm::vec3> m_fullNorm;
 	//aux2 é utilizado para armazenar temporariament o vec3 de float montado com base nas faces
 	//quando o método getFull é chamado
 	std::vector<glm::vec3> aux2;
@@ -44,6 +45,13 @@ public:
 		return m_verts;
 	}
 
+	void enableObject(int group) {
+		for (int i = 0; i < this->getGroupSize(); i++) {
+			this->getGroup(i)->noColor();
+		}
+		this->getGroup(group)->selectColor();
+	}
+
 	int getGroupSize() {
 		return this->groups.size();
 	}
@@ -59,6 +67,11 @@ public:
 	void insertVert(float x, float y, float z) {
 		glm::vec3 m_vec1 = glm::vec3(x, y, z);
 		m_verts.push_back(m_vec1);
+	}
+
+	void insertNorm(float x, float y, float z) {
+		glm::vec3 m_vec1 = glm::vec3(x, y, z);
+		m_norms.push_back(m_vec1);
 	}
 
 	void insertText(int x, int y) {
@@ -99,6 +112,23 @@ public:
 			}
 		}
 		return &m_full;
+	}
+
+
+	std::vector<glm::vec3>* getFullNormals() {
+		for (int i = 0; i < groups.size(); i++) {
+			for (int j = 0; j < this->groups.at(i)->getFaceSize(); j++) {
+				glm::vec3 aux = groups.at(i)->getFace(j)->getNormVec3();
+				glm::vec3 aux1;  //vertice
+				aux1 = this->m_norms.at(aux.x);
+				m_fullNorm.push_back(aux1);
+				aux1 = this->m_norms.at(aux.y);
+				m_fullNorm.push_back(aux1);
+				aux1 = this->m_norms.at(aux.z);
+				m_fullNorm.push_back(aux1);
+			}
+		}
+		return &m_fullNorm;
 	}
 
 	//Retorna o m_full sem adicionar mais elementos nele.
@@ -156,6 +186,12 @@ public:
 				glm::vec2 textTemp = glm::vec2(x, y);
 				this->m_texts.push_back(textTemp);
 				//this->insertText(x, y);
+			}
+			else if (temp == "vn") {
+				// ler normal
+				float x, y, z;
+				sline >> x >> y >> z;
+				this->insertNorm(x, y, z);
 			}
 
 			else if (temp == "g") {

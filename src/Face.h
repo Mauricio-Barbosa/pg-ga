@@ -26,6 +26,14 @@ public:
 		return vec;
 	}
 
+	glm::vec3 getNormVec3() {
+		glm::vec3 norm;
+		norm.x = this->normsPosition.at(0);
+		norm.y = this->normsPosition.at(1);
+		norm.z = this->normsPosition.at(2);
+		return norm;
+	}
+
 	glm::vec3 getTextVec3() {
 		glm::vec3 text;
 		text.x = this->textsPosition.at(0);
