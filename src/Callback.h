@@ -18,80 +18,84 @@ private:
 	bool firstMouse = true;
 	Camera* camera;
 	
+	int wasKeyPressed = 0;
 	
 public: 
+
+	std::vector<glm::vec3> click_verts;
+
 	Callback(int mode, Camera* camera) {
 		this->mode = mode;
 		this->camera = camera;
 	}
 	
-	void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-	{
+	void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+		if (mode == 0) {
+			this->callbackReader(window, xpos, ypos);
+		}
+		else if (mode == 1) {
+			this->callBackEditor(window, xpos, ypos);
+		}
+	}
 
+	void callBackEditor(GLFWwindow* window, double xpos, double ypos) {
+		//glOrtho(0, 800, 600, 0, -1, 1);
+		
+		//GLFW_KEY_Y
+		//	GLFW_MOUSE_BUTTON_LEFT
+		
+		if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS) {
+			wasKeyPressed = 1;
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_RELEASE && wasKeyPressed == 1) {
+			
+			this->click_verts.push_back(glm::vec3(xpos/800, ypos/800, 0));
+			cout << click_verts.at(click_verts.size() - 1).x << endl;
+			cout << click_verts.at(click_verts.size() - 1).y << endl;
+			cout << click_verts.at(click_verts.size() - 1).z << endl;
+			cout << "" << endl;
+			wasKeyPressed = 0;
+		}
+	}
+
+	void callbackReader(GLFWwindow* window, double xpos, double ypos) {
 		if (firstMouse)
 		{
-			//lastX = xpos;
-			//lastY = ypos;
 			camera->lastX = xpos;
 			camera->lastY = ypos;
 			firstMouse = false;
 		}
 
-		//float xoffset = xpos - lastX;
-		//float yoffset = lastY - ypos;
 		float xoffset = xpos - camera->lastX;
 		float yoffset = camera->lastY - ypos;
-		//lastX = xpos;
-		//lastY = ypos;
 		camera->lastX = xpos;
 		camera->lastY = ypos;
-
 		float sensitivity = 0.05;
 		xoffset *= sensitivity;
 		yoffset *= sensitivity;
-
-		/*yaw += xoffset;
-		pitch += yoffset;*/
 		camera->yaw += xoffset;
 		camera->pitch += yoffset;
-
-		/*if (pitch > 89.0f)
-			pitch = 89.0f;
-		if (pitch < -89.0f)
-			pitch = -89.0f;*/
 		if (camera->pitch > 89.0f)
 			camera->pitch = 89.0f;
 		if (camera->pitch < -89.0f)
 			camera->pitch = -89.0f;
-
-		//if (glfwGetKey(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
 		glm::vec3 front;
-		/*front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-		front.y = sin(glm::radians(pitch));
-		front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-		camera->setCameraFront(glm::normalize(front));*/
 		front.x = cos(glm::radians(camera->yaw)) * cos(glm::radians(camera->pitch));
 		front.y = sin(glm::radians(camera->pitch));
 		front.z = sin(glm::radians(camera->yaw)) * cos(glm::radians(camera->pitch));
 		camera->setCameraFront(glm::normalize(front));
-		//cameraFront = glm::normalize(front);
-	//}
+
 	}
 
-	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-	{
-		/*if (fov >= 1.0f && fov <= 45.0f)
-			fov -= yoffset;
-		if (fov <= 1.0f)
-			fov = 1.0f;
-		if (fov >= 45.0f)
-			fov = 45.0f;*/
+		void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
 		if (camera->fov >= 1.0f && camera->fov <= 45.0f)
 			camera->fov -= yoffset;
 		if (camera->fov <= 1.0f)
 			camera->fov = 1.0f;
 		if (camera->fov >= 45.0f)
 			camera->fov = 45.0f;
+	
 	}
 
 };

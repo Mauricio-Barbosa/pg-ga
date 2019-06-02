@@ -74,9 +74,10 @@ const char* fragment_shader =
 "}";
 
 //Mode 0 = leitura obj, mode 1 = editor
-int mode = 0;
+int mode = 1;
 const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_HEIGHT = 800;
+
 
 
 
@@ -86,27 +87,22 @@ Camera* camera = new Camera(SCR_WIDTH, SCR_HEIGHT);
 static Callback* callback;
 Shader coreShader;
 int activeGroup = 0;
-
+bool firstMouse = true;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 	glfwSwapBuffers(window);
 }
 
-bool firstMouse = true;
-
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
+void mouse_callback(GLFWwindow* window, double xpos, double ypos){
 	callback->mouse_callback(window,  xpos,  ypos);
 }
 
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-{
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset){
 	callback->scroll_callback(window, xoffset, yoffset);
 }
 
-void processInput(GLFWwindow *window)
-{
+void processInput(GLFWwindow *window){
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		camera->setCameraPos(camera->getCameraPos() + camera->getCameraSpeed() * camera->getCameraFront());
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
@@ -155,8 +151,8 @@ void processInput(GLFWwindow *window)
 
 
 int main() {
-
 	callback = new Callback(mode, camera);
+
 
 	if (!glfwInit()) {
 		cerr << "ERROR: could not start GLFW3" << endl;
@@ -220,16 +216,28 @@ int main() {
 	int width, height;
 	unsigned char* image;
 
+	std::vector<glm::vec3> drawPoints;
 
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	GLuint vertsVBO = 0;
+	if (mode == 1) {
+		
+	}
+	
+	
+
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 		
 	if (mode == 0) {
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		m->read("cube2.obj");
 		for (int i = 0; i < m->getGroupSize(); i++) {
 			m->getGroup(i)->inicializacao(m->getTextures(), m->getVerts(), m->getNorms());
 		}
+	}
+	else {
+		glEnable(GL_PROGRAM_POINT_SIZE);
+		//gl_PointSize = 10.0;
 	}
 
 	while (!glfwWindowShouldClose(window)) {
@@ -250,6 +258,36 @@ int main() {
 				camera->getCameraFront(), camera->getCameraUp());
 			glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection*view*t2));
 		}
+
+		drawPoints = callback->click_verts;
+
+		if (mode == 1 && drawPoints.size()>0) {
+			
+
+			GLuint vertsVBO = 0;
+			glGenBuffers(1, &vertsVBO);
+			glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawPoints.size(), &drawPoints[0], GL_STATIC_DRAW);
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+			
+			/*glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawPoints.size(), &drawPoints[0], GL_STATIC_DRAW);*/
+			glDrawArrays(GL_POINTS, 0, drawPoints.size());
+
+
+			
+
+			glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
+			glm::vec4 transformedVector = vector;
+			glm::mat4 projection = glm::perspective(glm::radians(camera->fov),
+				(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, 100.0f);
+			view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
+				camera->getCameraFront(), camera->getCameraUp());
+			glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view));
+		}
+		
+
 		processInput(window);
 		glfwSwapBuffers(window);
 	}
