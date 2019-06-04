@@ -223,7 +223,7 @@ C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(73,19): warnin
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(74,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(75,1): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(94,1): warning C4244:  '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(24,1): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(31,1): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(326,48): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(350,47): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(257,13): warning C4101:  'height': unreferenced local variable

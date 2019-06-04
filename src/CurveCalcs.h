@@ -19,10 +19,17 @@ public:
 
 	CurveCalcs() {};
 
-	std::vector<glm::vec3> generateCurve(std::vector<glm::vec3> controlPoints) {
+	std::vector<glm::vec3> generateCurve(std::vector<glm::vec3> controlPointsIn) {
 		std::vector<glm::vec3> curve;
+		std::vector<glm::vec3> controlPoints = controlPointsIn;
+
+		controlPoints.push_back(controlPoints.at(0));
+		controlPoints.push_back(controlPoints.at(1));
+		controlPoints.push_back(controlPoints.at(2));
+
+
 		float inc = 0.01;
-		for (int i = 0; i < controlPoints.size() -4; i++) {
+		for (int i = 0; i < controlPoints.size() -3; i++) {
 			float x0 = controlPoints.at(i).x;
 			float y0 = controlPoints.at(i).y;
 			for (float t = 0; t <= 1; t += inc) {
@@ -40,6 +47,7 @@ public:
 				curve.push_back(glm::vec3(x, y, 0));
 			}
 		}
+
 		return curve;
 	}
 
