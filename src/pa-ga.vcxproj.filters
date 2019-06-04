@@ -59,5 +59,8 @@
     <ClInclude Include="ObjWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CurveCalcs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

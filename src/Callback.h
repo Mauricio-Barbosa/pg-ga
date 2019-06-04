@@ -42,7 +42,7 @@ public:
 		//glOrtho(0, 800, 600, 0, -1, 1);
 		
 		//GLFW_KEY_Y
-		//	GLFW_MOUSE_BUTTON_LEFT
+		//GLFW_MOUSE_BUTTON_LEFT
 		
 		if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS) {
 			wasKeyPressed = 1;
@@ -50,7 +50,8 @@ public:
 
 		if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_RELEASE && wasKeyPressed == 1) {
 			
-			this->click_verts.push_back(glm::vec3(xpos/800, ypos/800, 0));
+			//this->click_verts.push_back(glm::vec3(xpos/800, ypos/800, 0));
+			this->click_verts.push_back(glm::vec3(xpos, ypos, 0));
 			cout << click_verts.at(click_verts.size() - 1).x << endl;
 			cout << click_verts.at(click_verts.size() - 1).y << endl;
 			cout << click_verts.at(click_verts.size() - 1).z << endl;
@@ -88,14 +89,13 @@ public:
 
 	}
 
-		void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
 		if (camera->fov >= 1.0f && camera->fov <= 45.0f)
 			camera->fov -= yoffset;
 		if (camera->fov <= 1.0f)
 			camera->fov = 1.0f;
 		if (camera->fov >= 45.0f)
 			camera->fov = 45.0f;
-	
 	}
 
 };

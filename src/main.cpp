@@ -12,6 +12,7 @@
 #include "Camera.h"
 #include "Callback.h"
 #include <SOIL.h>
+#include "curveCalcs.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ const char* vertex_shader =
 "layout(location=2) in vec2 texture_mapping;" //texture
 "layout(location=3) in vec3 vn;" //vertex normal
 "uniform mat4 matrix;"
-
+//"gl_PointSize = 20.0f;"
 "out vec2 texture_coordinates;"
 "out vec3 color_values;"
 "out vec3 vertex_normals;"
@@ -40,6 +41,31 @@ const char* vertex_shader =
 "	vec3 pos = vec3(matrix) * vp ;"
 "	gl_Position = matrix * vec4 (vp, 1.0);"
 "}";
+
+
+const char* vertex_shader_points =
+"#version 410\n"
+"layout(location=0) in vec3 vp;" //vertex position
+"layout(location=1) in vec3 vc;" //vertex color
+"layout(location=2) in vec2 texture_mapping;" //texture
+"layout(location=3) in vec3 vn;" //vertex normal
+"uniform mat4 matrix;"
+"gl_PointSize = 20.0f;"
+"out vec2 texture_coordinates;"
+"out vec3 color_values;"
+"out vec3 vertex_normals;"
+"out vec3 pos;"
+//"out vec3 matrix;"
+
+"void main () {"
+"	texture_coordinates = texture_mapping;"
+"	vertex_normals = vn;"
+"   color_values = vc;"
+//"	vec4 pos = matrix * vec4 (vp, 1.0);"
+"	vec3 pos = vec3(matrix) * vp ;"
+"	gl_Position = matrix * vec4 (vp, 1.0);"
+"}";
+
 
 const char* fragment_shader =
 "#version 410\n"
@@ -75,7 +101,7 @@ const char* fragment_shader =
 
 //Mode 0 = leitura obj, mode 1 = editor
 int mode = 1;
-const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_WIDTH = 1000;
 const unsigned int SCR_HEIGHT = 800;
 
 
@@ -88,6 +114,11 @@ static Callback* callback;
 Shader coreShader;
 int activeGroup = 0;
 bool firstMouse = true;
+CurveCalcs curveCalcs;
+
+
+
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
@@ -151,6 +182,9 @@ void processInput(GLFWwindow *window){
 
 
 int main() {
+
+
+
 	callback = new Callback(mode, camera);
 
 
@@ -159,7 +193,7 @@ int main() {
 		return 1;
 	}
 	GLFWwindow *window = glfwCreateWindow(
-		1000, 700, "Teste de versão OpenGL", NULL, NULL);
+		SCR_WIDTH, SCR_HEIGHT, "Teste de versão OpenGL", NULL, NULL);
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
@@ -191,9 +225,16 @@ int main() {
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
+	
 	// identifica vs e o associa com vertex_shader
 	GLuint vs = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vs, 1, &vertex_shader, NULL);
+	if (mode == 0) {
+		glShaderSource(vs, 1, &vertex_shader, NULL);
+	}
+	else {
+		glShaderSource(vs, 1, &vertex_shader_points, NULL);
+	}
+
 	glCompileShader(vs);
 	// identifica fs e o associa com fragment_shader
 	GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
@@ -217,6 +258,7 @@ int main() {
 	unsigned char* image;
 
 	std::vector<glm::vec3> drawPoints;
+	std::vector<glm::vec3> drawLines;
 
 	GLuint vertsVBO = 0;
 	if (mode == 1) {
@@ -235,10 +277,11 @@ int main() {
 			m->getGroup(i)->inicializacao(m->getTextures(), m->getVerts(), m->getNorms());
 		}
 	}
-	else {
+	//else {
 		glEnable(GL_PROGRAM_POINT_SIZE);
+		//glPointSize(200.0f);
 		//gl_PointSize = 10.0;
-	}
+	//}
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
@@ -248,6 +291,7 @@ int main() {
 		glm::mat4 t2;
 		for (int i = 0; i < m->getGroupSize(); i++) {
 			m->getGroup(i)->draw();
+			
 			t2 = glm::translate(glm::mat4(1.f), glm::vec3(m->getGroup(i)->getlastPositionX(), m->getGroup(i)->getlastPositionY(), m->getGroup(i)->getlastPositionZ()));
 
 			glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
@@ -260,9 +304,12 @@ int main() {
 		}
 
 		drawPoints = callback->click_verts;
+		if(drawPoints.size() > 3)
+			drawLines = curveCalcs.generateCurve(drawPoints);
 
 		if (mode == 1 && drawPoints.size()>0) {
 			
+			glPointSize(20.0f);
 
 			GLuint vertsVBO = 0;
 			glGenBuffers(1, &vertsVBO);
@@ -271,12 +318,13 @@ int main() {
 			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 			
-			/*glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawPoints.size(), &drawPoints[0], GL_STATIC_DRAW);*/
+
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, 1.0f);
+			glMatrixMode(GL_MODELVIEW);
 			glDrawArrays(GL_POINTS, 0, drawPoints.size());
 
-
-			
 
 			glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
 			glm::vec4 transformedVector = vector;
@@ -285,6 +333,22 @@ int main() {
 			view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
 				camera->getCameraFront(), camera->getCameraUp());
 			glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view));
+
+			if (drawLines.size() > 3) {
+				GLuint vertsVBO = 0;
+				glGenBuffers(1, &vertsVBO);
+				glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawLines.size(), &drawLines[0], GL_STATIC_DRAW);
+				glEnableVertexAttribArray(0);
+				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+
+				glMatrixMode(GL_PROJECTION);
+				glLoadIdentity();
+				glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, 1.0f);
+				glMatrixMode(GL_MODELVIEW);
+				glDrawArrays(GL_LINES, 0, drawLines.size());
+			}
 		}
 		
 
