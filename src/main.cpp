@@ -129,6 +129,14 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos){
 	callback->mouse_callback(window,  xpos,  ypos);
 }
 
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+	if(mode == 1)
+		callback->mouse_button_callback(window, button, action, mods);
+}
+
+
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset){
 	callback->scroll_callback(window, xoffset, yoffset);
 }
@@ -269,6 +277,7 @@ int main() {
 
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
+	glfwSetMouseButtonCallback(window, mouse_button_callback);
 		
 	if (mode == 0) {
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
