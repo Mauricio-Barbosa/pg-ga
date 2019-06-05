@@ -215,15 +215,15 @@ C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(258,32):
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(258,32): warning C4244:         [
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(258,32): warning C4244:             _Ty=int
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(258,32): warning C4244:         ]
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(70,20): warning C4244:  '=': conversão de 'double' para 'float', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(71,20): warning C4244:  '=': conversão de 'double' para 'float', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(75,17): warning C4244:  'inicializando': conversão de 'double' para 'float', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(76,17): warning C4244:  'inicializando': conversão de 'double' para 'float', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(77,19): warning C4244:  '=': conversão de 'double' para 'float', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(78,19): warning C4244:  '=': conversão de 'double' para 'float', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(79,1): warning C4305:  'inicializando': truncamento de 'double' para 'float'
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(98,1): warning C4244:  '-=': conversão de 'double' para 'float', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(31,1): warning C4305:  'inicializando': truncamento de 'double' para 'float'
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(58,20): warning C4244:  '=': conversão de 'double' para 'float', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(59,20): warning C4244:  '=': conversão de 'double' para 'float', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(63,17): warning C4244:  'inicializando': conversão de 'double' para 'float', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(64,17): warning C4244:  'inicializando': conversão de 'double' para 'float', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(65,19): warning C4244:  '=': conversão de 'double' para 'float', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(66,19): warning C4244:  '=': conversão de 'double' para 'float', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(67,1): warning C4305:  'inicializando': truncamento de 'double' para 'float'
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(86,1): warning C4244:  '-=': conversão de 'double' para 'float', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(57,1): warning C4305:  'inicializando': truncamento de 'double' para 'float'
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(335,48): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(359,47): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(265,13): warning C4101:  'height': variável local não referenciada

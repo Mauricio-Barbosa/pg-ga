@@ -42,25 +42,13 @@ public:
 		if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 		{
 			double xpos, ypos;
-			//getting cursor position
 			glfwGetCursorPos(window, &xpos, &ypos);
 			cout << "Cursor Position at (" << xpos << " : " << ypos << endl;
-
 			this->click_verts.push_back(glm::vec3(xpos, ypos, 0));
-			cout << click_verts.at(click_verts.size() - 1).x << endl;
-			cout << click_verts.at(click_verts.size() - 1).y << endl;
-			cout << click_verts.at(click_verts.size() - 1).z << endl;
-			cout << "" << endl;
-			wasKeyPressed = 0;
 		}
 	}
 
 	void callBackEditor(GLFWwindow* window, double xpos, double ypos) {
-		//glOrtho(0, 800, 600, 0, -1, 1);
-		
-		//GLFW_KEY_Y
-		//GLFW_MOUSE_BUTTON_LEFT
-		
 		
 	}
 
