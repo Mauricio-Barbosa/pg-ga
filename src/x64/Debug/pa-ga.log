@@ -225,7 +225,7 @@ C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(67,1
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(86,1): warning C4244:  '-=': conversão de 'double' para 'float', possível perda de dados
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(57,1): warning C4305:  'inicializando': truncamento de 'double' para 'float'
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(335,48): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(359,47): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(360,52): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(265,13): warning C4101:  'height': variável local não referenciada
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(265,6): warning C4101:  'width': variável local não referenciada
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(266,17): warning C4101:  'image': variável local não referenciada

@@ -356,7 +356,9 @@ int main() {
 				glLoadIdentity();
 				glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, 1.0f);
 				glMatrixMode(GL_MODELVIEW);
-				glDrawArrays(GL_LINES, 0, drawLines.size());
+				//glDrawArrays(GL_LINES, 0, drawLines.size());
+				glDrawArrays(GL_LINE_STRIP, 0, drawLines.size());
+				
 			}
 		}
 		
