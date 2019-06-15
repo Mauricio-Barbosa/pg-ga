@@ -32,8 +32,9 @@ public:
 		std::vector<glm::vec3> curve;
 		std::vector<glm::vec3> controlPoints = controlPointsIn;
 
-		bool fecharSomenteQuandoPerto = true;
+		bool fecharSomenteQuandoPerto = false;
 
+		/*
 		if (fecharSomenteQuandoPerto) {
 			if (checkIfPointsAreClose(controlPointsIn.at(0), controlPoints.at(controlPointsIn.size() - 1))) {
 				controlPoints.push_back(controlPoints.at(0));
@@ -46,7 +47,7 @@ public:
 			controlPoints.push_back(controlPoints.at(1));
 			controlPoints.push_back(controlPoints.at(2));
 		}
-
+		*/
 
 		/*
 		controlPoints.push_back(controlPoints.at(0));
@@ -55,22 +56,25 @@ public:
 		*/
 
 		float inc = 0.01;
-		for (int i = 0; i < controlPoints.size() -3; i++) {
+		//for (int i = 0; i < controlPoints.size() -3; i++) {
+		for (int i = 0; i < controlPoints.size(); i++) {
 			float x0 = controlPoints.at(i).x;
 			float y0 = controlPoints.at(i).y;
+			float z = controlPoints.at(i).z;
 			for (float t = 0; t <= 1; t += inc) {
-				float x = (((-1 * pow(t, 3) + 3 * pow(t, 2) - 3 * t + 1) * controlPoints.at(i).x +
-					(3 * pow(t, 3) - 6 * pow(t, 2) + 0 * t + 4) * controlPoints.at(i+1).x +
-					(-3 * pow(t, 3) + 3 * pow(t, 2) + 3 * t + 1) * controlPoints.at(i + 2).x +
-					(1 * pow(t, 3) + 0 * pow(t, 2) + 0 * t + 0) * controlPoints.at(i + 3).x) / 6);
-				float y = (((-1 * pow(t, 3) + 3 * pow(t, 2) - 3 * t + 1) * controlPoints.at(i).y +
-					(3 * pow(t, 3) - 6 * pow(t, 2) + 0 * t + 4) * controlPoints.at(i + 1).y +
-					(-3 * pow(t, 3) + 3 * pow(t, 2) + 3 * t + 1) * controlPoints.at(i + 2).y +
-					(1 * pow(t, 3) + 0 * pow(t, 2) + 0 * t + 0) * controlPoints.at(i + 3).y) / 6);
+				float x = (((-1 * pow(t, 3) + 3 * pow(t, 2) - 3 * t + 1) * controlPoints.at(i % controlPoints.size()).x +
+					(3 * pow(t, 3) - 6 * pow(t, 2) + 0 * t + 4) * controlPoints.at((i+1) % controlPoints.size()).x +
+					(-3 * pow(t, 3) + 3 * pow(t, 2) + 3 * t + 1) * controlPoints.at((i + 2) % controlPoints.size()).x +
+					(1 * pow(t, 3) + 0 * pow(t, 2) + 0 * t + 0) * controlPoints.at((i + 3) % controlPoints.size()).x) / 6);
+				float y = (((-1 * pow(t, 3) + 3 * pow(t, 2) - 3 * t + 1) * controlPoints.at(i % controlPoints.size()).y +
+					(3 * pow(t, 3) - 6 * pow(t, 2) + 0 * t + 4) * controlPoints.at((i + 1) % controlPoints.size()).y +
+					(-3 * pow(t, 3) + 3 * pow(t, 2) + 3 * t + 1) * controlPoints.at((i + 2) % controlPoints.size()).y +
+					(1 * pow(t, 3) + 0 * pow(t, 2) + 0 * t + 0) * controlPoints.at((i + 3) % controlPoints.size()).y) / 6);
 				//plot(x0, y0, x, y);
 				x0 = x;
 				y0 = y;
-				curve.push_back(glm::vec3(x, y, 0));
+				curve.push_back(glm::vec3(x, y, z));
+				//cout << "x: " << x << " - y: " << y << " - z: " << z << endl;
 			}
 		}
 

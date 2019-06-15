@@ -23,6 +23,7 @@ private:
 public: 
 
 	std::vector<glm::vec3> click_verts;
+	std::vector<glm::vec3> color;
 
 	Callback(int mode, Camera* camera) {
 		this->mode = mode;
@@ -44,7 +45,11 @@ public:
 			double xpos, ypos;
 			glfwGetCursorPos(window, &xpos, &ypos);
 			cout << "Cursor Position at (" << xpos << " : " << ypos << endl;
-			this->click_verts.push_back(glm::vec3(xpos, ypos, 0));
+			//ALTERADO PARA DEBUG DO GLORTHO
+			//this->click_verts.push_back(glm::vec3(xpos, ypos, 0));
+			this->click_verts.push_back(glm::vec3(xpos/1000, ypos/700, 0));
+
+			this->color.push_back(glm::vec3(0.4f, 0.14f, 0.0f));
 		}
 	}
 
@@ -82,12 +87,48 @@ public:
 	}
 
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+		
+		/*
 		if (camera->fov >= 1.0f && camera->fov <= 45.0f)
 			camera->fov -= yoffset;
 		if (camera->fov <= 1.0f)
 			camera->fov = 1.0f;
 		if (camera->fov >= 45.0f)
 			camera->fov = 45.0f;
+		
+		
+		if (yoffset > 0 && this->click_verts.at(click_verts.size() - 1).z < 230) {
+			this->color.at(color.size() - 1).z += 20;
+		}
+		else if (yoffset < 0 && this->click_verts.at(click_verts.size() - 1).z >= 20) {
+			this->color.at(color.size() - 1).z -= 20;
+		}
+		*/
+
+		if (yoffset > 0 ) {
+			this->click_verts.at(click_verts.size() - 1).z += 1;
+			if (this->click_verts.at(click_verts.size() - 1).z > 19) {
+				this->click_verts.at(click_verts.size() - 1).z = 19;
+			}
+
+			this->color.at(color.size() - 1).z += 0.1;
+			if (this->color.at(color.size() - 1).z > 0.9) {
+				this->color.at(color.size() - 1).z = 0.9;
+			}
+		}
+		else if (yoffset < 0) {
+			this->click_verts.at(click_verts.size() - 1).z -= 1;
+			if (this->click_verts.at(click_verts.size() - 1).z < 0) {
+				this->click_verts.at(click_verts.size() - 1).z = 0;
+			}
+
+			this->color.at(color.size() - 1).z -= 0.1;
+			if (this->color.at(color.size() - 1).z < 0.1) {
+				this->color.at(color.size() - 1).z = 0.1;
+			}
+		}
+
+		//this->click_verts.at(click_verts.size() - 1).z = -19;
 	}
 
 };

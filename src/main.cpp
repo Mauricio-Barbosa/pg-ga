@@ -19,6 +19,8 @@ using namespace std;
 //#define EXIT_FAILURE -1
 //#define EXIT_SUCCESS 0
 
+
+
 const char* vertex_shader =
 "#version 410\n"
 "layout(location=0) in vec3 vp;" //vertex position
@@ -43,28 +45,7 @@ const char* vertex_shader =
 "}";
 
 
-const char* vertex_shader_points =
-"#version 410\n"
-"layout(location=0) in vec3 vp;" //vertex position
-"layout(location=1) in vec3 vc;" //vertex color
-"layout(location=2) in vec2 texture_mapping;" //texture
-"layout(location=3) in vec3 vn;" //vertex normal
-"uniform mat4 matrix;"
-"gl_PointSize = 20.0f;"
-"out vec2 texture_coordinates;"
-"out vec3 color_values;"
-"out vec3 vertex_normals;"
-"out vec3 pos;"
-//"out vec3 matrix;"
 
-"void main () {"
-"	texture_coordinates = texture_mapping;"
-"	vertex_normals = vn;"
-"   color_values = vc;"
-//"	vec4 pos = matrix * vec4 (vp, 1.0);"
-"	vec3 pos = vec3(matrix) * vp ;"
-"	gl_Position = matrix * vec4 (vp, 1.0);"
-"}";
 
 
 const char* fragment_shader =
@@ -95,14 +76,55 @@ const char* fragment_shader =
 "	diff = clamp(diff, 0.0, 1.0);"
 //"	vec3 diffuse = diff * lightColor;"
 "	float ilum = pa+pd+ps;"
-//"	frag_color = texture(basic_texture, texture_coordinates) * vec4(color_values, 1.0) * (diff);"//(diff + ilum);"
-"	frag_color = texture(basic_texture, texture_coordinates) * (diff + ilum);"
+"	frag_color = texture(basic_texture, texture_coordinates) * vec4(color_values, 1.0) * (diff);"//(diff + ilum);"
+//"	frag_color = texture(basic_texture, texture_coordinates) * (diff + ilum);"
 "}";
+/*
+const char* vertex_shader_points =
+"#version 410\n"
+"layout(location=0) in vec3 vp;" //vertex position
+"layout(location=1) in vec3 vc;" //vertex color
+"uniform mat4 matrix;"
+"out vec3 color_values;" ///////////
+"void main () {"
+"   color_values = vc;"
+"	gl_Position = matrix * vec4 (vp, 1.0);"
+"}";
+
+const char* fragment_shader_points =
+"#version 410\n"
+"in vec3 color_values;"
+"out vec4 frag_color;"
+"void main () {"
+//"	vec4 frag_color = vec4(color_values, 1.0);"
+"	frag_color = vec4(1.0f, 0.0f, 1.0f, 1.0f);"
+"}";
+*/
+
+const char* vertex_shader_points =
+"#version 410\n"
+"layout(location=0) in vec3 vp;"
+"layout(location=1) in vec3 vc;"
+"uniform mat4 matrix;"
+"out vec3 color;"
+"void main () {"
+"   color = vc;"
+" gl_Position = matrix * vec4 (vp, 1.0);"
+"}";
+
+const char* fragment_shader_points =
+"#version 410\n"
+"in vec3 color;"
+"out vec4 frag_color;"
+"void main () {"
+" frag_color = vec4 (color, 1.0);"
+"}";
+
 
 //Mode 0 = leitura obj, mode 1 = editor
 int mode = 1;
 const unsigned int SCR_WIDTH = 1000;
-const unsigned int SCR_HEIGHT = 800;
+const unsigned int SCR_HEIGHT = 700;
 
 
 
@@ -191,10 +213,7 @@ void processInput(GLFWwindow *window){
 
 int main() {
 
-
-
 	callback = new Callback(mode, camera);
-
 
 	if (!glfwInit()) {
 		cerr << "ERROR: could not start GLFW3" << endl;
@@ -226,7 +245,6 @@ int main() {
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
-
 	
 	//DADOS
 	GLuint VAO = 0;
@@ -244,10 +262,53 @@ int main() {
 	}
 
 	glCompileShader(vs);
+
+	GLint isCompiled = 0;
+	glGetShaderiv(vs, GL_COMPILE_STATUS, &isCompiled);
+	if (isCompiled == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetShaderiv(vs, GL_INFO_LOG_LENGTH, &maxLength);
+
+		// The maxLength includes the NULL character
+		std::vector<GLchar> errorLog(maxLength);
+		glGetShaderInfoLog(vs, maxLength, &maxLength, &errorLog[0]);
+		cout << "Shader vs deu pau." << endl;
+		// Provide the infolog in whatever manor you deem best.
+		// Exit with failure.
+		glDeleteShader(vs); // Don't leak the shader.
+		
+	}
+
+
 	// identifica fs e o associa com fragment_shader
 	GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fs, 1, &fragment_shader, NULL);
+	if (mode == 0) {
+		glShaderSource(fs, 1, &fragment_shader, NULL);
+	}
+	else {
+		glShaderSource(fs, 1, &fragment_shader_points, NULL);
+	}
+
 	glCompileShader(fs);
+
+	isCompiled = 0;
+	glGetShaderiv(fs, GL_COMPILE_STATUS, &isCompiled);
+	if (isCompiled == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetShaderiv(fs, GL_INFO_LOG_LENGTH, &maxLength);
+
+		// The maxLength includes the NULL character
+		std::vector<GLchar> errorLog(maxLength);
+		glGetShaderInfoLog(fs, maxLength, &maxLength, &errorLog[0]);
+		cout << "Shader fs deu pau." << endl;
+		// Provide the infolog in whatever manor you deem best.
+		// Exit with failure.
+		glDeleteShader(fs); // Don't leak the shader.
+		
+	}
+
 
 	// identifica do programa, adiciona partes e faz "linkagem"
 	GLuint shader_programme = glCreateProgram();
@@ -267,13 +328,11 @@ int main() {
 
 	std::vector<glm::vec3> drawPoints;
 	std::vector<glm::vec3> drawLines;
+	std::vector<glm::vec3> drawColors;
 
-	GLuint vertsVBO = 0;
-	if (mode == 1) {
-		
-	}
-	
-	
+	//GLuint vertsVBO = 0;
+	//if (mode == 1) {	
+	//}
 
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
@@ -286,40 +345,40 @@ int main() {
 			m->getGroup(i)->inicializacao(m->getTextures(), m->getVerts(), m->getNorms());
 		}
 	}
-	//else {
-		glEnable(GL_PROGRAM_POINT_SIZE);
-		//glPointSize(200.0f);
-		//gl_PointSize = 10.0;
-	//}
-
+	glEnable(GL_PROGRAM_POINT_SIZE);
+	
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 		glClearColor(0.2f, 0.8f, 0.2f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		if (mode == 0) {
+			glm::mat4 t2;
+			for (int i = 0; i < m->getGroupSize(); i++) {
+				m->getGroup(i)->draw();
 
-		glm::mat4 t2;
-		for (int i = 0; i < m->getGroupSize(); i++) {
-			m->getGroup(i)->draw();
-			
-			t2 = glm::translate(glm::mat4(1.f), glm::vec3(m->getGroup(i)->getlastPositionX(), m->getGroup(i)->getlastPositionY(), m->getGroup(i)->getlastPositionZ()));
+				t2 = glm::translate(glm::mat4(1.f), glm::vec3(m->getGroup(i)->getlastPositionX(), m->getGroup(i)->getlastPositionY(), m->getGroup(i)->getlastPositionZ()));
 
-			glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
-			glm::vec4 transformedVector = t2 * vector;
-			glm::mat4 projection = glm::perspective(glm::radians(camera->fov), 
-				(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, 100.0f);
-			view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() + 
-				camera->getCameraFront(), camera->getCameraUp());
-			glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection*view*t2));
+				glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
+				glm::vec4 transformedVector = t2 * vector;
+				glm::mat4 projection = glm::perspective(glm::radians(camera->fov),
+					(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, 100.0f);
+				view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
+					camera->getCameraFront(), camera->getCameraUp());
+				glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection * view * t2));
+			}
 		}
 
 		drawPoints = callback->click_verts;
 		if(drawPoints.size() > 3)
 			drawLines = curveCalcs.generateCurve(drawPoints);
+		drawColors = callback->color;
 
 		if (mode == 1 && drawPoints.size()>0) {
 			
-			glPointSize(20.0f);
+			
 
+			glPointSize(10.0f);
+			
 			GLuint vertsVBO = 0;
 			glGenBuffers(1, &vertsVBO);
 			glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
@@ -327,13 +386,23 @@ int main() {
 			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 			
+			//VBO de cores
+			GLuint colorsVBO = 0;
+			glGenBuffers(1, &colorsVBO);
+			glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+			
 
+			//Desenho de pontos clicados
+			
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
-			glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, 1.0f);
-			glMatrixMode(GL_MODELVIEW);
+			glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, -20.0f);
+			//glMatrixMode(GL_MODELVIEW);
 			glDrawArrays(GL_POINTS, 0, drawPoints.size());
-
+			
 
 			glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
 			glm::vec4 transformedVector = vector;
@@ -343,6 +412,7 @@ int main() {
 				camera->getCameraFront(), camera->getCameraUp());
 			glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view));
 
+			
 			if (drawLines.size() > 3) {
 				GLuint vertsVBO = 0;
 				glGenBuffers(1, &vertsVBO);
@@ -351,18 +421,64 @@ int main() {
 				glEnableVertexAttribArray(0);
 				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
+				//VBO de cores
+				GLuint colorsVBO = 0;
+				glGenBuffers(1, &colorsVBO);
+				glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				glEnableVertexAttribArray(1);
+				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
+				//GL_LINE_STRIP
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
-				glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, 1.0f);
-				glMatrixMode(GL_MODELVIEW);
-				//glDrawArrays(GL_LINES, 0, drawLines.size());
+				//glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, -20.0f);
+				glOrtho(0.0f, 1000, 700, 0.0f, 0.0f, -20.0f);
+				//glMatrixMode(GL_MODELVIEW);
 				glDrawArrays(GL_LINE_STRIP, 0, drawLines.size());
-				
-			}
-		}
-		
+				//glDrawArrays(GL_TRIANGLES, 0, drawLines.size());
 
+			}
+			
+			//DADOS-------------------------------
+			
+			GLuint vao = 0;
+			glGenVertexArrays(1, &vao);
+			glBindVertexArray(vao);
+			
+			/*
+			GLfloat points[] = {
+			 0.0f, 0.8f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 -0.5f, -0.5f, 0.0f,
+			};
+			GLuint vbo = 0;
+			glGenBuffers(1, &vbo);
+			glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			//glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawPoints.size(), &drawPoints[0], GL_STATIC_DRAW);
+
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+			
+
+			//GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+			GLuint colorsVBO = 0;
+			glGenBuffers(1, &colorsVBO);
+			glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
+			//glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(GLfloat), colors, GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+			*/
+
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, -20.0f);
+			glOrtho(0.0f, 1000, 700, 0.0f, -1, 1);
+			//glDrawArrays(GL_TRIANGLES, 0, 3);
+			glDrawArrays(GL_POINTS, 0, drawPoints.size());
+		}
 		processInput(window);
 		glfwSwapBuffers(window);
 	}
