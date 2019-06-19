@@ -107,9 +107,12 @@ const char* vertex_shader_points =
 "layout(location=1) in vec3 vc;"
 "uniform mat4 matrix;"
 "out vec3 color;"
+"out vec3 pos;"
 "void main () {"
 "   color = vc;"
-" gl_Position = matrix * vec4 (vp, 1.0);"
+"	gl_PointSize = 10.0f; "
+"	vec3 pos = vec3(matrix) * vp ;"
+"	gl_Position = matrix * vec4 (vp, 1.0);"
 "}";
 
 const char* fragment_shader_points =
@@ -214,6 +217,8 @@ void processInput(GLFWwindow *window){
 int main() {
 
 	callback = new Callback(mode, camera);
+	glEnable(0x8642);
+	//glEnable(GL_POINT_SMOOTH);
 
 	if (!glfwInit()) {
 		cerr << "ERROR: could not start GLFW3" << endl;
@@ -328,6 +333,8 @@ int main() {
 
 	std::vector<glm::vec3> drawPoints;
 	std::vector<glm::vec3> drawLines;
+	std::vector<glm::vec3> drawInternalLines;
+	std::vector<glm::vec3> drawExternalLines;
 	std::vector<glm::vec3> drawColors;
 
 	//GLuint vertsVBO = 0;
@@ -346,7 +353,16 @@ int main() {
 		}
 	}
 	glEnable(GL_PROGRAM_POINT_SIZE);
-	
+	glPointSize(30.0f);
+
+	glMatrixMode(GL_PROJECTION);
+	//glMatrixMode("matrix");
+	glLoadIdentity();
+	glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, 1.0f);
+	glMatrixMode(GL_MODELVIEW);
+	//glViewport(0, 0, 1000, 1000);
+
+
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 		glClearColor(0.2f, 0.8f, 0.2f, 1.f);
@@ -369,15 +385,20 @@ int main() {
 		}
 
 		drawPoints = callback->click_verts;
-		if(drawPoints.size() > 3)
+		if (drawPoints.size() > 3) {
 			drawLines = curveCalcs.generateCurve(drawPoints);
+			drawInternalLines = curveCalcs.generateInternalCurve(drawPoints);
+			drawExternalLines = curveCalcs.generateExternalCurve(drawPoints);
+		}
+
 		drawColors = callback->color;
+		
 
 		if (mode == 1 && drawPoints.size()>0) {
 			
 			
 
-			glPointSize(10.0f);
+			
 			
 			GLuint vertsVBO = 0;
 			glGenBuffers(1, &vertsVBO);
@@ -395,15 +416,19 @@ int main() {
 			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 			
 
-			//Desenho de pontos clicados
 			
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-			glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, -20.0f);
-			//glMatrixMode(GL_MODELVIEW);
+			/*
+			GLfloat matrixx[16];
+			glGetFloatv(GL_MODELVIEW_MATRIX, matrixx);
+			cout << '[' << matrixx[0] << ']' << '[' << matrixx[1] << ']' << '[' << matrixx[2] << ']' << '[' << matrixx[3] << ']' << endl;
+			cout << '[' << matrixx[4] << ']' << '[' << matrixx[5] << ']' << '[' << matrixx[6] << ']' << '[' << matrixx[7] << ']' << endl;
+			cout << '[' << matrixx[8] << ']' << '[' << matrixx[9] << ']' << '[' << matrixx[10] << ']' << '[' << matrixx[11] << ']' << endl;
+			cout << '[' << matrixx[12] << ']' << '[' << matrixx[13] << ']' << '[' << matrixx[14] << ']' << '[' << matrixx[15] << ']' << endl;
+			*/
+		
 			glDrawArrays(GL_POINTS, 0, drawPoints.size());
 			
-
+			
 			glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
 			glm::vec4 transformedVector = vector;
 			glm::mat4 projection = glm::perspective(glm::radians(camera->fov),
@@ -411,7 +436,7 @@ int main() {
 			view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
 				camera->getCameraFront(), camera->getCameraUp());
 			glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view));
-
+			
 			
 			if (drawLines.size() > 3) {
 				GLuint vertsVBO = 0;
@@ -429,55 +454,51 @@ int main() {
 				glEnableVertexAttribArray(1);
 				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-				//GL_LINE_STRIP
-				glMatrixMode(GL_PROJECTION);
-				glLoadIdentity();
-				//glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, -20.0f);
-				glOrtho(0.0f, 1000, 700, 0.0f, 0.0f, -20.0f);
-				//glMatrixMode(GL_MODELVIEW);
 				glDrawArrays(GL_LINE_STRIP, 0, drawLines.size());
-				//glDrawArrays(GL_TRIANGLES, 0, drawLines.size());
+			
+
+				drawPoints = callback->click_verts;
+				drawInternalLines = curveCalcs.generateInternalCurve(drawPoints);
+				drawExternalLines = curveCalcs.generateExternalCurve(drawPoints);
+
+
+				vertsVBO = 0;
+				glGenBuffers(1, &vertsVBO);
+				glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawInternalLines.size(), &drawInternalLines[0], GL_STATIC_DRAW);
+				glEnableVertexAttribArray(0);
+				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+				colorsVBO = 0;
+				glGenBuffers(1, &colorsVBO);
+				glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				glEnableVertexAttribArray(1);
+				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+				glDrawArrays(GL_LINE_STRIP, 0, drawLines.size());
+
+
+				vertsVBO = 0;
+				glGenBuffers(1, &vertsVBO);
+				glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawExternalLines.size(), &drawExternalLines[0], GL_STATIC_DRAW);
+				glEnableVertexAttribArray(0);
+				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+				colorsVBO = 0;
+				glGenBuffers(1, &colorsVBO);
+				glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				glEnableVertexAttribArray(1);
+				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+				glDrawArrays(GL_LINE_STRIP, 0, drawLines.size());
+
 
 			}
-			
-			//DADOS-------------------------------
-			
-			GLuint vao = 0;
-			glGenVertexArrays(1, &vao);
-			glBindVertexArray(vao);
-			
-			/*
-			GLfloat points[] = {
-			 0.0f, 0.8f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 -0.5f, -0.5f, 0.0f,
-			};
-			GLuint vbo = 0;
-			glGenBuffers(1, &vbo);
-			glBindBuffer(GL_ARRAY_BUFFER, vbo);
-			//glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawPoints.size(), &drawPoints[0], GL_STATIC_DRAW);
 
-			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-			
 
-			//GLfloat colors[] = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-			GLuint colorsVBO = 0;
-			glGenBuffers(1, &colorsVBO);
-			glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
-			//glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(GLfloat), colors, GL_STATIC_DRAW);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
-			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-			*/
-
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-			glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, -20.0f);
-			glOrtho(0.0f, 1000, 700, 0.0f, -1, 1);
-			//glDrawArrays(GL_TRIANGLES, 0, 3);
-			glDrawArrays(GL_POINTS, 0, drawPoints.size());
 		}
 		processInput(window);
 		glfwSwapBuffers(window);

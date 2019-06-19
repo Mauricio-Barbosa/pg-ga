@@ -106,7 +106,7 @@ public:
 		*/
 
 		if (yoffset > 0 ) {
-			this->click_verts.at(click_verts.size() - 1).z += 1;
+			this->click_verts.at(click_verts.size() - 1).z += 0.01;
 			if (this->click_verts.at(click_verts.size() - 1).z > 19) {
 				this->click_verts.at(click_verts.size() - 1).z = 19;
 			}
@@ -117,7 +117,7 @@ public:
 			}
 		}
 		else if (yoffset < 0) {
-			this->click_verts.at(click_verts.size() - 1).z -= 1;
+			this->click_verts.at(click_verts.size() - 1).z -= 0.01;
 			if (this->click_verts.at(click_verts.size() - 1).z < 0) {
 				this->click_verts.at(click_verts.size() - 1).z = 0;
 			}
