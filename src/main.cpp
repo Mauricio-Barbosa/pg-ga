@@ -333,6 +333,8 @@ int main() {
 
 	std::vector<glm::vec3> drawPoints;
 	std::vector<glm::vec3> drawLines;
+	std::vector<glm::vec3> drawInternalLines;
+	std::vector<glm::vec3> drawExternalLines;
 	std::vector<glm::vec3> drawColors;
 
 	//GLuint vertsVBO = 0;
@@ -383,8 +385,12 @@ int main() {
 		}
 
 		drawPoints = callback->click_verts;
-		if(drawPoints.size() > 3)
+		if (drawPoints.size() > 3) {
 			drawLines = curveCalcs.generateCurve(drawPoints);
+			drawInternalLines = curveCalcs.generateInternalCurve(drawPoints);
+			drawExternalLines = curveCalcs.generateExternalCurve(drawPoints);
+		}
+
 		drawColors = callback->color;
 		
 
@@ -448,9 +454,47 @@ int main() {
 				glEnableVertexAttribArray(1);
 				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-
 				glDrawArrays(GL_LINE_STRIP, 0, drawLines.size());
 			
+
+				drawPoints = callback->click_verts;
+				drawInternalLines = curveCalcs.generateInternalCurve(drawPoints);
+				drawExternalLines = curveCalcs.generateExternalCurve(drawPoints);
+
+
+				vertsVBO = 0;
+				glGenBuffers(1, &vertsVBO);
+				glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawInternalLines.size(), &drawInternalLines[0], GL_STATIC_DRAW);
+				glEnableVertexAttribArray(0);
+				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+				colorsVBO = 0;
+				glGenBuffers(1, &colorsVBO);
+				glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				glEnableVertexAttribArray(1);
+				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+				glDrawArrays(GL_LINE_STRIP, 0, drawLines.size());
+
+
+				vertsVBO = 0;
+				glGenBuffers(1, &vertsVBO);
+				glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawExternalLines.size(), &drawExternalLines[0], GL_STATIC_DRAW);
+				glEnableVertexAttribArray(0);
+				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+				colorsVBO = 0;
+				glGenBuffers(1, &colorsVBO);
+				glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				glEnableVertexAttribArray(1);
+				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+				glDrawArrays(GL_LINE_STRIP, 0, drawLines.size());
+
 
 			}
 
