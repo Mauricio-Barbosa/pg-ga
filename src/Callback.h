@@ -48,7 +48,6 @@ public:
 			//ALTERADO PARA DEBUG DO GLORTHO
 			//this->click_verts.push_back(glm::vec3(xpos, ypos, 0));
 			this->click_verts.push_back(glm::vec3(xpos/1000, ypos/700, 0));
-			//this->click_verts.push_back(glm::vec3(xpos/1000, ypos / 700, 0));
 
 			this->color.push_back(glm::vec3(0.4f, 0.14f, 0.0f));
 		}
@@ -107,7 +106,7 @@ public:
 		*/
 
 		if (yoffset > 0 ) {
-			this->click_verts.at(click_verts.size() - 1).z += 0.01;
+			this->click_verts.at(click_verts.size() - 1).z += 1;
 			if (this->click_verts.at(click_verts.size() - 1).z > 19) {
 				this->click_verts.at(click_verts.size() - 1).z = 19;
 			}
@@ -118,7 +117,7 @@ public:
 			}
 		}
 		else if (yoffset < 0) {
-			this->click_verts.at(click_verts.size() - 1).z -= 0.01;
+			this->click_verts.at(click_verts.size() - 1).z -= 1;
 			if (this->click_verts.at(click_verts.size() - 1).z < 0) {
 				this->click_verts.at(click_verts.size() - 1).z = 0;
 			}

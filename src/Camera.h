@@ -25,7 +25,6 @@ public:
 		cameraPos = glm::vec3(0.0f, 0.0f, 2.0f);
 		cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 		cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
 		cameraSpeed = 0.0005f;
 		this->SCR_WIDTH = SCR_WIDTH;
 		this->SCR_HEIGHT = SCR_HEIGHT;
