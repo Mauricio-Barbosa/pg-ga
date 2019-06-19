@@ -47,9 +47,10 @@ public:
 			cout << "Cursor Position at (" << xpos << " : " << ypos << endl;
 			//ALTERADO PARA DEBUG DO GLORTHO
 			//this->click_verts.push_back(glm::vec3(xpos, ypos, 0));
-			this->click_verts.push_back(glm::vec3(xpos/1000, ypos/700, 0));
+			//this->click_verts.push_back(glm::vec3(xpos/1000, ypos/700, 0));
+			this->click_verts.push_back(glm::vec3((xpos/350-1), (ypos / 350-1) * -1, 0));
 
-			this->color.push_back(glm::vec3(0.4f, 0.14f, 0.0f));
+			this->color.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
 		}
 	}
 

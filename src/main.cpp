@@ -126,7 +126,7 @@ const char* fragment_shader_points =
 
 //Mode 0 = leitura obj, mode 1 = editor
 int mode = 1;
-const unsigned int SCR_WIDTH = 1000;
+const unsigned int SCR_WIDTH = 700;
 const unsigned int SCR_HEIGHT = 700;
 
 
@@ -336,6 +336,7 @@ int main() {
 	std::vector<glm::vec3> drawInternalLines;
 	std::vector<glm::vec3> drawExternalLines;
 	std::vector<glm::vec3> drawColors;
+	std::vector<glm::vec3> LineColors;
 
 	//GLuint vertsVBO = 0;
 	//if (mode == 1) {	
@@ -389,6 +390,7 @@ int main() {
 			drawLines = curveCalcs.generateCurve(drawPoints);
 			drawInternalLines = curveCalcs.generateInternalCurve(drawPoints);
 			drawExternalLines = curveCalcs.generateExternalCurve(drawPoints);
+			LineColors = curveCalcs.generateCurveColor(drawInternalLines);
 		}
 
 		drawColors = callback->color;
@@ -450,7 +452,8 @@ int main() {
 				GLuint colorsVBO = 0;
 				glGenBuffers(1, &colorsVBO);
 				glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				//glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* LineColors.size(), &LineColors[0], GL_STATIC_DRAW);
 				glEnableVertexAttribArray(1);
 				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
@@ -460,6 +463,7 @@ int main() {
 				drawPoints = callback->click_verts;
 				drawInternalLines = curveCalcs.generateInternalCurve(drawPoints);
 				drawExternalLines = curveCalcs.generateExternalCurve(drawPoints);
+				LineColors = curveCalcs.generateCurveColor(drawInternalLines);
 
 
 				vertsVBO = 0;
@@ -472,7 +476,8 @@ int main() {
 				colorsVBO = 0;
 				glGenBuffers(1, &colorsVBO);
 				glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				//glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* LineColors.size(), &LineColors[0], GL_STATIC_DRAW);
 				glEnableVertexAttribArray(1);
 				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
@@ -488,8 +493,9 @@ int main() {
 
 				colorsVBO = 0;
 				glGenBuffers(1, &colorsVBO);
-				glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				glBindBuffer(GL_ARRAY_BUFFER, colorsVBO); 
+				//glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* drawColors.size(), &drawColors[0], GL_STATIC_DRAW);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)* LineColors.size(), &LineColors[0], GL_STATIC_DRAW);
 				glEnableVertexAttribArray(1);
 				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 

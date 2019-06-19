@@ -15,11 +15,15 @@
 class CurveCalcs {
 
 private:
-
-
+	//Alturas máximas e mínimas da curva
+	float maxAlt;
+	float minAlt;
 public:
 
-	CurveCalcs() {};
+	CurveCalcs() {
+		maxAlt = 20;
+		minAlt = 0;
+	};
 
 	bool checkIfPointsAreClose(glm::vec3 firstPoint, glm::vec3 lastPoint) {
 		bool areClose = false;
@@ -28,6 +32,20 @@ public:
 
 		return areClose;
 	}
+
+	std::vector<glm::vec3> generateCurveColor(std::vector<glm::vec3> curvePointsIn) {
+		vector<glm::vec3> generateCurveColor;
+		int tamanho = curvePointsIn.size();
+		float x = 0;
+		float y = 0;
+		float z = 0;
+		for (int i = 0; i <= tamanho; i++) {
+			z = maxAlt * (curvePointsIn.at(i % tamanho).z);
+			generateCurveColor.push_back(glm::vec3(x, y, z));
+		}
+		return generateCurveColor;
+	}
+
 
 	std::vector<glm::vec3> generateCurve(std::vector<glm::vec3> controlPointsIn) {
 		std::vector<glm::vec3> curve;
