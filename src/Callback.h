@@ -89,7 +89,8 @@ public:
 
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
 		
-		/*
+		if (mode == 0){
+		
 		if (camera->fov >= 1.0f && camera->fov <= 45.0f)
 			camera->fov -= yoffset;
 		if (camera->fov <= 1.0f)
@@ -97,38 +98,31 @@ public:
 		if (camera->fov >= 45.0f)
 			camera->fov = 45.0f;
 		
+		} else{
 		
-		if (yoffset > 0 && this->click_verts.at(click_verts.size() - 1).z < 230) {
-			this->color.at(color.size() - 1).z += 20;
-		}
-		else if (yoffset < 0 && this->click_verts.at(click_verts.size() - 1).z >= 20) {
-			this->color.at(color.size() - 1).z -= 20;
-		}
-		*/
+			if (yoffset > 0 ) {
+				this->click_verts.at(click_verts.size() - 1).z += 0.2;
+				if (this->click_verts.at(click_verts.size() - 1).z > 20) {
+					this->click_verts.at(click_verts.size() - 1).z = 20;
+				}
 
-		if (yoffset > 0 ) {
-			this->click_verts.at(click_verts.size() - 1).z += 0.2;
-			if (this->click_verts.at(click_verts.size() - 1).z > 20) {
-				this->click_verts.at(click_verts.size() - 1).z = 20;
+				this->color.at(color.size() - 1).z += 0.1;
+				if (this->color.at(color.size() - 1).z > 1.0) {
+					this->color.at(color.size() - 1).z = 1.0;
+				}
 			}
+			else if (yoffset < 0) {
+				this->click_verts.at(click_verts.size() - 1).z -= 0.2;
+				if (this->click_verts.at(click_verts.size() - 1).z < 0) {
+					this->click_verts.at(click_verts.size() - 1).z = 0;
+				}
 
-			this->color.at(color.size() - 1).z += 0.1;
-			if (this->color.at(color.size() - 1).z > 1.0) {
-				this->color.at(color.size() - 1).z = 1.0;
-			}
-		}
-		else if (yoffset < 0) {
-			this->click_verts.at(click_verts.size() - 1).z -= 0.2;
-			if (this->click_verts.at(click_verts.size() - 1).z < 0) {
-				this->click_verts.at(click_verts.size() - 1).z = 0;
-			}
-
-			this->color.at(color.size() - 1).z -= 0.1;
-			if (this->color.at(color.size() - 1).z < 0.0) {
-				this->color.at(color.size() - 1).z = 0.0;
+				this->color.at(color.size() - 1).z -= 0.1;
+				if (this->color.at(color.size() - 1).z < 0.0) {
+					this->color.at(color.size() - 1).z = 0.0;
+				}
 			}
 		}
-
 		//this->click_verts.at(click_verts.size() - 1).z = -19;
 	}
 

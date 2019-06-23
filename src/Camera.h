@@ -21,12 +21,23 @@ private:
 	
 
 public:
-	Camera(int SCR_WIDTH, int SCR_HEIGHT) {
-		cameraPos = glm::vec3(0.0f, 0.0f, 2.0f);
-		cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+	Camera(int SCR_WIDTH, int SCR_HEIGHT, int mode) {
+		//cameraPos = glm::vec3(0.0f, 0.0f, 2.0f);
+		cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
+		
+		if(mode == 0){
+			cameraFront = glm::vec3(0.f, 0.f, 0.f);
+		}
+		else {
+			cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+		}
+		//
+		//cameraFront = glm::vec3(0.81f, 0.15f, 0.56f);
+		
 		cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-		cameraSpeed = 0.0005f;
+		//cameraSpeed = 0.0005f;
+		cameraSpeed = 0.05f;
 		this->SCR_WIDTH = SCR_WIDTH;
 		this->SCR_HEIGHT = SCR_HEIGHT;
 		lastX = SCR_WIDTH / 2.0f;
@@ -34,7 +45,7 @@ public:
 	};
 	
 	float cameraSpeed; // adjust accordingly
-	float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+	float yaw = 0;//-90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
 	float pitch = 0.0f;
 	float fov = 45.0f;
 	float lastX;

@@ -13,6 +13,7 @@
 #include "Callback.h"
 #include <SOIL.h>
 #include "curveCalcs.h"
+#include "ObjWriter.h"
 
 using namespace std;
 
@@ -56,7 +57,7 @@ const char* fragment_shader =
 //"in vec3(matrix);"
 
 "uniform sampler2D basic_texture;"
-"uniform float pa = 0.2;"
+"uniform float pa = 0.6;"
 "uniform float pd = 0.1;"
 "uniform float ps = 0.1;"
 
@@ -76,7 +77,7 @@ const char* fragment_shader =
 "	diff = clamp(diff, 0.0, 1.0);"
 //"	vec3 diffuse = diff * lightColor;"
 "	float ilum = pa+pd+ps;"
-"	frag_color = texture(basic_texture, texture_coordinates) * vec4(color_values, 1.0) * (diff);"//(diff + ilum);"
+"	frag_color = texture(basic_texture, texture_coordinates) * vec4(color_values, 1.0) * (diff+ilum);"
 //"	frag_color = texture(basic_texture, texture_coordinates) * (diff + ilum);"
 "}";
 /*
@@ -125,7 +126,7 @@ const char* fragment_shader_points =
 
 
 //Mode 0 = leitura obj, mode 1 = editor
-int mode = 1;
+int mode = 0;
 const unsigned int SCR_WIDTH = 1000;
 const unsigned int SCR_HEIGHT = 700;
 
@@ -133,15 +134,21 @@ const unsigned int SCR_HEIGHT = 700;
 
 
 Mesh* m = new Mesh;
+ObjWriter* objWriter = new ObjWriter;
 glm::mat4 view;
-Camera* camera = new Camera(SCR_WIDTH, SCR_HEIGHT);
+Camera* camera = new Camera(SCR_WIDTH, SCR_HEIGHT, mode);
 static Callback* callback;
 Shader coreShader;
 int activeGroup = 0;
 bool firstMouse = true;
 CurveCalcs curveCalcs;
 
-
+std::vector<glm::vec3> drawPoints;
+std::vector<glm::vec3> drawLines;
+std::vector<glm::vec3> drawInternalLines;
+std::vector<glm::vec3> drawExternalLines;
+std::vector<glm::vec3> drawColors;
+std::vector<glm::vec3> LineColors;
 
 
 
@@ -212,9 +219,18 @@ void processInput(GLFWwindow *window){
 			activeGroup = 6;
 		if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS)
 			activeGroup = 7;
+
+		if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+			cout << "Camera Front x = " << camera->getCameraFront().x << endl;
+			cout << "Camera Front y = " << camera->getCameraFront().y << endl;
+			cout << "Camera Front z = " << camera->getCameraFront().z << endl;
+		}
 	}
 	else {
-
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+			objWriter->writeObj(objWriter->curvesToRoadVerts(drawInternalLines, drawExternalLines));
+		}
+		
 	}
 }
 
@@ -336,16 +352,8 @@ int main() {
 	int width, height;
 	unsigned char* image;
 
-	std::vector<glm::vec3> drawPoints;
-	std::vector<glm::vec3> drawLines;
-	std::vector<glm::vec3> drawInternalLines;
-	std::vector<glm::vec3> drawExternalLines;
-	std::vector<glm::vec3> drawColors;
-	std::vector<glm::vec3> LineColors;
+	
 
-	//GLuint vertsVBO = 0;
-	//if (mode == 1) {	
-	//}
 
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
@@ -353,9 +361,10 @@ int main() {
 		
 	if (mode == 0) {
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		m->read("cube2.obj");
+		//m->read("cube2.obj");
+		m->read("road.obj");
 		for (int i = 0; i < m->getGroupSize(); i++) {
-			m->getGroup(i)->inicializacao(m->getTextures(), m->getVerts(), m->getNorms());
+			m->getGroup(i)->inicializacao(m->getTextures(), m->getVerts(), m->getNorms(), m->getNmtlName());
 		}
 	}
 	glEnable(GL_PROGRAM_POINT_SIZE);
@@ -383,11 +392,14 @@ int main() {
 				glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
 				glm::vec4 transformedVector = t2 * vector;
 				glm::mat4 projection = glm::perspective(glm::radians(camera->fov),
-					(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, 100.0f);
+					//(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, 100.0f);
+					(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, -20.1f, 20.0f);
 				view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
 					camera->getCameraFront(), camera->getCameraUp());
 				glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection * view * t2));
 			}
+
+
 		}
 
 		drawPoints = callback->click_verts;
@@ -431,7 +443,7 @@ int main() {
 			//glm::mat4 projection = glm::perspective(glm::radians(camera->fov),
 			//	(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, 100.0f);
 
-			glm::mat4 projection = glm::ortho(0.0f, (float)SCR_WIDTH, (float)SCR_HEIGHT, 0.0f, -20.0f, 20.0f);
+			glm::mat4 projection = glm::ortho(0.0f, (float)SCR_WIDTH, (float)SCR_HEIGHT, 0.0f, -2.0f, 2.0f);
 			view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
 				camera->getCameraFront(), camera->getCameraUp());
 			glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view));

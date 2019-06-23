@@ -12,6 +12,7 @@ private:
 	char m_name;
 	char m_material;
 	float speed;
+	string mtlName;
 	std::vector<glm::vec3> m_verts;
 	std::vector<glm::vec3> m_colors;
 	std::vector<glm::vec3> m_full;
@@ -162,14 +163,14 @@ public:
 		glEnableVertexAttribArray(1);
 	}
 
-	void inicializacao(vector<glm::vec2> m_textures, vector<glm::vec3> m_verts, vector<glm::vec3> m_norms) {
+	void inicializacao(vector<glm::vec2> m_textures, vector<glm::vec3> m_verts, vector<glm::vec3> m_norms, string MtlName) {
 
 		GLuint VAO = 0;
 		glGenVertexArrays(1, &VAO);
 		glBindVertexArray(VAO);
 		this->m_fullVerts = this->getFullVertices(m_verts);
 		this->m_fullNorms = this->getFullNorms(m_norms);
-		
+		this->mtlName = MtlName;
 
 		m_colors = this->getFullVerticesColor();
 		for (int i = 0; i < m_colors.size(); i++) {
@@ -200,7 +201,9 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		image = SOIL_load_image("wall.png", &width, &height, 0, SOIL_LOAD_RGB);
+		//image = SOIL_load_image("wall.png", &width, &height, 0, SOIL_LOAD_RGB);
+		//image = SOIL_load_image("road.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+		image = SOIL_load_image("road.jpg", &width, &height, 0, SOIL_LOAD_RGB);
 
 		if (image) {
 			cout << "image loaded sucesfully:" << endl;

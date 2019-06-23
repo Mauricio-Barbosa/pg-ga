@@ -19,6 +19,7 @@ private:
 	std::vector<glm::vec3> m_full;
 	std::vector<glm::vec2> m_fullText;
 	std::vector<glm::vec3> m_fullNorm;
+	string mtlName;
 	//aux2 é utilizado para armazenar temporariament o vec3 de float montado com base nas faces
 	//quando o método getFull é chamado
 	std::vector<glm::vec3> aux2;
@@ -27,6 +28,10 @@ private:
 
 public:
 	Mesh() {}
+
+	string getNmtlName() {
+		return this->mtlName;
+	}
 
 	void addFace(int groupPos, vector<int> vertsPosition, vector<int> textsPosition, vector<int> normsPosition) {
 		this->groups.at(groupPos)->addFace(vertsPosition, textsPosition, normsPosition);
@@ -145,7 +150,9 @@ public:
 		return groups[n];
 	}
 
-	Mesh *read(std::string filename) {
+
+
+	Mesh* read(std::string filename) {
 		Mesh *mesh = new Mesh;
 		std::ifstream arq(filename);
 		int groupPos = -1;
@@ -177,6 +184,12 @@ public:
 				float x, y, z;
 				sline >> x >> y >> z;
 				this->insertNorm(x, y, z);
+			}
+			else if (temp == "mtllib") {
+				// mtl
+				string mtlNameTemp;
+				sline >> mtlName;
+				this->mtlName = mtlNameTemp;
 			}
 
 			else if (temp == "g") {
