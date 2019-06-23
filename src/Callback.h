@@ -46,9 +46,9 @@ public:
 			glfwGetCursorPos(window, &xpos, &ypos);
 			cout << "Cursor Position at (" << xpos << " : " << ypos << endl;
 			//ALTERADO PARA DEBUG DO GLORTHO
-			//this->click_verts.push_back(glm::vec3(xpos, ypos, 0));
+			this->click_verts.push_back(glm::vec3(xpos, ypos, 0));
 			//this->click_verts.push_back(glm::vec3(xpos/1000, ypos/700, 0));
-			this->click_verts.push_back(glm::vec3((xpos/350-1), (ypos / 350-1) * -1, 0));
+			//this->click_verts.push_back(glm::vec3((xpos/350-1), (ypos / 350-1) * -1, 0));
 
 			this->color.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
 		}
@@ -107,25 +107,25 @@ public:
 		*/
 
 		if (yoffset > 0 ) {
-			this->click_verts.at(click_verts.size() - 1).z += 0.01;
-			if (this->click_verts.at(click_verts.size() - 1).z > 19) {
-				this->click_verts.at(click_verts.size() - 1).z = 19;
+			this->click_verts.at(click_verts.size() - 1).z += 0.2;
+			if (this->click_verts.at(click_verts.size() - 1).z > 20) {
+				this->click_verts.at(click_verts.size() - 1).z = 20;
 			}
 
 			this->color.at(color.size() - 1).z += 0.1;
-			if (this->color.at(color.size() - 1).z > 0.9) {
-				this->color.at(color.size() - 1).z = 0.9;
+			if (this->color.at(color.size() - 1).z > 1.0) {
+				this->color.at(color.size() - 1).z = 1.0;
 			}
 		}
 		else if (yoffset < 0) {
-			this->click_verts.at(click_verts.size() - 1).z -= 0.01;
+			this->click_verts.at(click_verts.size() - 1).z -= 0.2;
 			if (this->click_verts.at(click_verts.size() - 1).z < 0) {
 				this->click_verts.at(click_verts.size() - 1).z = 0;
 			}
 
 			this->color.at(color.size() - 1).z -= 0.1;
-			if (this->color.at(color.size() - 1).z < 0.1) {
-				this->color.at(color.size() - 1).z = 0.1;
+			if (this->color.at(color.size() - 1).z < 0.0) {
+				this->color.at(color.size() - 1).z = 0.0;
 			}
 		}
 

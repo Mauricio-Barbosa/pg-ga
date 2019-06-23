@@ -40,7 +40,8 @@ public:
 		float y = 0;
 		float z = 0;
 		for (int i = 0; i <= tamanho; i++) {
-			z = maxAlt * (curvePointsIn.at(i % tamanho).z);
+			//z = maxAlt * (curvePointsIn.at(i % tamanho).z);
+			z = (curvePointsIn.at(i % tamanho).z)/20;
 			generateCurveColor.push_back(glm::vec3(x, y, z));
 		}
 		return generateCurveColor;
@@ -77,7 +78,6 @@ public:
 				curve.push_back(glm::vec3(x, y, z));
 			}
 		}
-
 		return curve;
 	}
 
@@ -87,20 +87,20 @@ public:
 		float h = 0;
 		float alpha = 0;
 		float theta = 0;
-		float m = 0.05f; // Largura da curva
+		float m = 20.0f; // Largura da curva
 		float Cx = 0;
 		float Cy = 0;
 		float Cz = 0;
 		float Ax = 0;
 		float Ay = 0;
 		int sizePoints = controlPointsIn.size();
-		float degrees = atan(1) * 4; //"atan(1) * 4" é equivalente a 90 graus
-		for (int i = 0; i < sizePoints; i += 1) {
+		float degrees = atan(1) * 2; //"atan(1) * 2" é equivalente a 90 graus
+		for (int i = 0; i <= sizePoints; i += 1) {
 			Ax = controlPointsIn.at((i) % sizePoints).x;
 			Ay = controlPointsIn.at((i) % sizePoints).y;
 			w = controlPointsIn.at((i + 1) % sizePoints).x - controlPointsIn.at((i) % sizePoints).x;
 			h = controlPointsIn.at((i + 1) % sizePoints).y - controlPointsIn.at((i) % sizePoints).y;
-			theta = atan(h / m);
+			theta = atan(h / w);
 			if (w < 0) {
 				alpha = theta - degrees;
 			}
@@ -109,13 +109,14 @@ public:
 				alpha = theta + degrees;
 			}
 			Cx = cos(alpha) * m + Ax;
-			Cy = cos(alpha) * m + Ay;
+			Cy = sin(alpha) * m + Ay;
 			Cz = controlPointsIn.at((i) % sizePoints).z;
 			InternalPoints.push_back(glm::vec3(Cx, Cy, Cz));
 		}
-		std::vector<glm::vec3> InternalMinorPoints;
-		InternalMinorPoints = this->generateCurve(InternalPoints);
-		return InternalMinorPoints;
+		//std::vector<glm::vec3> InternalMinorPoints;
+		//InternalMinorPoints = this->generateCurve(InternalPoints);
+		//return InternalMinorPoints;
+		return InternalPoints;
 	}
 
 	std::vector<glm::vec3> generateExternalCurve(std::vector<glm::vec3> controlPointsIn) {
@@ -124,36 +125,37 @@ public:
 		float h = 0;
 		float alpha = 0;
 		float theta = 0;
-		float m = -0.05f; // Largura da curva
+		float m = 20.0f; // Largura da curva
 		float Cx = 0;
 		float Cy = 0;
 		float Cz = 0;
 		float Ax = 0;
 		float Ay = 0;
 		int sizePoints = controlPointsIn.size();
-		float degrees = atan(1) * 4; //"atan(1) * 4" é equivalente a 90 graus
-		for (int i = 0; i < sizePoints; i += 1) {
+		float degrees = atan(1) * 2; //"atan(1) * 2" é equivalente a 90 graus
+		for (int i = 0; i <= sizePoints; i += 1) {
 
 			Ax = controlPointsIn.at((i) % sizePoints).x;
 			Ay = controlPointsIn.at((i) % sizePoints).y;
 			w = controlPointsIn.at((i + 1) % sizePoints).x - controlPointsIn.at((i) % sizePoints).x;
 			h = controlPointsIn.at((i + 1) % sizePoints).y - controlPointsIn.at((i) % sizePoints).y;
-			theta = atan(h / m);
+			theta = atan(h / w);
 			if (w < 0) {
-				alpha = theta - degrees;
+				alpha = theta + degrees;
 			}
 			else
 			{
-				alpha = theta + degrees;
+				alpha = theta - degrees;
 			}
 			Cx = cos(alpha) * m + Ax;
-			Cy = cos(alpha) * m + Ay;
+			Cy = sin(alpha) * m + Ay;
 			Cz = controlPointsIn.at((i) % sizePoints).z;
 			ExternalPoints.push_back(glm::vec3(Cx, Cy, Cz));
 		}
-		std::vector<glm::vec3> ExternalMinorPoints;
+		/*std::vector<glm::vec3> ExternalMinorPoints;
 		ExternalMinorPoints = this->generateCurve(ExternalPoints);
-		return ExternalMinorPoints;
+		return ExternalMinorPoints;*/
+		return ExternalPoints;
 	}
 
 };

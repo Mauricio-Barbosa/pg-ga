@@ -126,7 +126,7 @@ const char* fragment_shader_points =
 
 //Mode 0 = leitura obj, mode 1 = editor
 int mode = 1;
-const unsigned int SCR_WIDTH = 700;
+const unsigned int SCR_WIDTH = 1000;
 const unsigned int SCR_HEIGHT = 700;
 
 
@@ -167,50 +167,55 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset){
 }
 
 void processInput(GLFWwindow *window){
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		camera->setCameraPos(camera->getCameraPos() + camera->getCameraSpeed() * camera->getCameraFront());
-	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		camera->setCameraPos(camera->getCameraPos() - camera->getCameraSpeed() * camera->getCameraFront());
-	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		camera->setCameraPos(camera->getCameraPos() - glm::normalize(glm::cross(
-			camera->getCameraFront(), camera->getCameraUp())) * camera->getCameraSpeed());
-	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		camera->setCameraPos(camera->getCameraPos() + glm::normalize(glm::cross(
-			camera->getCameraFront(), camera->getCameraUp())) * camera->getCameraSpeed());
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		m->getGroup(activeGroup)->increaseX();
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		m->getGroup(activeGroup)->decreaseX();
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		m->getGroup(activeGroup)->increaseY();
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		m->getGroup(activeGroup)->decreaseY();
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-		m->getGroup(activeGroup)->increaseZ();
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-		m->getGroup(activeGroup)->decreaseZ();
-	if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS) {
-		activeGroup = 0;
-		m->enableObject(0);
-	}	
-	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
-		activeGroup = 1;
-		m->enableObject(1);
+	if(mode == 0){
+		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+			camera->setCameraPos(camera->getCameraPos() + camera->getCameraSpeed() * camera->getCameraFront());
+		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+			camera->setCameraPos(camera->getCameraPos() - camera->getCameraSpeed() * camera->getCameraFront());
+		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+			camera->setCameraPos(camera->getCameraPos() - glm::normalize(glm::cross(
+				camera->getCameraFront(), camera->getCameraUp())) * camera->getCameraSpeed());
+		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+			camera->setCameraPos(camera->getCameraPos() + glm::normalize(glm::cross(
+				camera->getCameraFront(), camera->getCameraUp())) * camera->getCameraSpeed());
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			m->getGroup(activeGroup)->increaseX();
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			m->getGroup(activeGroup)->decreaseX();
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			m->getGroup(activeGroup)->increaseY();
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			m->getGroup(activeGroup)->decreaseY();
+		if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+			m->getGroup(activeGroup)->increaseZ();
+		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+			m->getGroup(activeGroup)->decreaseZ();
+		if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS) {
+			activeGroup = 0;
+			m->enableObject(0);
+		}	
+		if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+			activeGroup = 1;
+			m->enableObject(1);
+		}
+		if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+			activeGroup = 2;
+			m->enableObject(2);
+		}
+		if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+			activeGroup = 3;
+		if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+			activeGroup = 4;
+		if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
+			activeGroup = 5;
+		if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
+			activeGroup = 6;
+		if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS)
+			activeGroup = 7;
 	}
-	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
-		activeGroup = 2;
-		m->enableObject(2);
+	else {
+
 	}
-	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
-		activeGroup = 3;
-	if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
-		activeGroup = 4;
-	if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
-		activeGroup = 5;
-	if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
-		activeGroup = 6;
-	if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS)
-		activeGroup = 7;
 }
 
 
@@ -387,9 +392,10 @@ int main() {
 
 		drawPoints = callback->click_verts;
 		if (drawPoints.size() > 3) {
+			drawPoints = callback->click_verts;
 			drawLines = curveCalcs.generateCurve(drawPoints);
-			drawInternalLines = curveCalcs.generateInternalCurve(drawPoints);
-			drawExternalLines = curveCalcs.generateExternalCurve(drawPoints);
+			drawInternalLines = curveCalcs.generateInternalCurve(curveCalcs.generateCurve(drawPoints));
+			drawExternalLines = curveCalcs.generateExternalCurve(curveCalcs.generateCurve(drawPoints));
 			LineColors = curveCalcs.generateCurveColor(drawInternalLines);
 		}
 
@@ -400,8 +406,6 @@ int main() {
 			
 			
 
-			
-			
 			GLuint vertsVBO = 0;
 			glGenBuffers(1, &vertsVBO);
 			glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
@@ -418,23 +422,16 @@ int main() {
 			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 			
 
-			
-			/*
-			GLfloat matrixx[16];
-			glGetFloatv(GL_MODELVIEW_MATRIX, matrixx);
-			cout << '[' << matrixx[0] << ']' << '[' << matrixx[1] << ']' << '[' << matrixx[2] << ']' << '[' << matrixx[3] << ']' << endl;
-			cout << '[' << matrixx[4] << ']' << '[' << matrixx[5] << ']' << '[' << matrixx[6] << ']' << '[' << matrixx[7] << ']' << endl;
-			cout << '[' << matrixx[8] << ']' << '[' << matrixx[9] << ']' << '[' << matrixx[10] << ']' << '[' << matrixx[11] << ']' << endl;
-			cout << '[' << matrixx[12] << ']' << '[' << matrixx[13] << ']' << '[' << matrixx[14] << ']' << '[' << matrixx[15] << ']' << endl;
-			*/
-		
+
 			glDrawArrays(GL_POINTS, 0, drawPoints.size());
 			
 			
 			glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
 			glm::vec4 transformedVector = vector;
-			glm::mat4 projection = glm::perspective(glm::radians(camera->fov),
-				(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, 100.0f);
+			//glm::mat4 projection = glm::perspective(glm::radians(camera->fov),
+			//	(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, 100.0f);
+
+			glm::mat4 projection = glm::ortho(0.0f, (float)SCR_WIDTH, (float)SCR_HEIGHT, 0.0f, -20.0f, 20.0f);
 			view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
 				camera->getCameraFront(), camera->getCameraUp());
 			glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view));
@@ -461,9 +458,12 @@ int main() {
 			
 
 				drawPoints = callback->click_verts;
-				drawInternalLines = curveCalcs.generateInternalCurve(drawPoints);
-				drawExternalLines = curveCalcs.generateExternalCurve(drawPoints);
+				drawLines = curveCalcs.generateCurve(drawPoints);
+				drawInternalLines = curveCalcs.generateInternalCurve(curveCalcs.generateCurve(drawPoints));
+				//drawExternalLines = curveCalcs.generateExternalCurve(drawPoints);
+				drawExternalLines = curveCalcs.generateExternalCurve(curveCalcs.generateCurve(drawPoints));
 				LineColors = curveCalcs.generateCurveColor(drawInternalLines);
+				//LineColors = curveCalcs.generateCurveColor(drawInternalLines);
 
 
 				vertsVBO = 0;
