@@ -13,14 +13,20 @@ private:
 	char m_material;
 	float speed;
 	string mtlName;
+	const char * textureImage;
+	int width, height;
 	std::vector<glm::vec3> m_verts;
 	std::vector<glm::vec3> m_colors;
 	std::vector<glm::vec3> m_full;
+	std::vector<glm::vec3> m_normsSave;
+	std::vector<glm::vec3> m_vertsSave;
+	std::vector<glm::vec2> m_texturesSave;
 	std::vector<glm::vec3> m_fullVerts;
 	std::vector<glm::vec3> m_fullNorms;
 	std::vector<glm::vec2> m_fullText;
 	std::vector<glm::vec2> m_textures;
 	std::vector<Face*> m_face;
+	unsigned char* image; //imagem lida pelo soil
 	
 public:
 	Face* face;
@@ -33,6 +39,19 @@ public:
 		lastPositionY = 0;
 		lastPositionZ = 0;
 		speed = 0.002f;
+		this->textureImage = "road.jpg";
+	}
+
+	Group(char * textureName) {
+		lastPositionX = 0;
+		lastPositionY = 0;
+		lastPositionZ = 0;
+		speed = 0.002f;
+		this->textureImage = textureName;
+	}
+
+	void setTexture(char * textureName) {
+		this->textureImage = textureName;
 	}
 
 	void increaseY() {
@@ -41,17 +60,26 @@ public:
 	void decreaseY() {
 		lastPositionY -= speed;
 	}
+	void setY(float pos) {
+		lastPositionY = pos;
+	}
 	void increaseX() {
 		lastPositionX += speed;
 	}
 	void decreaseX() {
 		lastPositionX -= speed;
 	}
+	void setX(float pos) {
+		lastPositionX = pos;
+	}
 	void increaseZ() {
 		lastPositionZ += speed;
 	}
 	void decreaseZ() {
 		lastPositionZ -= speed;
+	}
+	void setZ(float pos) {
+		lastPositionZ = pos;
 	}
 
 	float getlastPositionX() {
@@ -163,7 +191,25 @@ public:
 		glEnableVertexAttribArray(1);
 	}
 
+	std::vector<glm::vec3> generateCarPath() {
+		std::vector<glm::vec3> path;
+		glm::vec3 point;
+		for (int i = 0; i < this->m_fullVerts.size()-2; i+=2) {
+			//if(i % 3 != 0){
+				point.x = (this->m_fullVerts.at(i).x + this->m_fullVerts.at(i + 1).x) / 2;
+				point.y = (this->m_fullVerts.at(i).y + this->m_fullVerts.at(i + 1).y) / 2;
+				point.z = (this->m_fullVerts.at(i).z + this->m_fullVerts.at(i + 1).z) / 2;
+				path.push_back(point);
+			//}
+		}
+		return path;
+	}
+
 	void inicializacao(vector<glm::vec2> m_textures, vector<glm::vec3> m_verts, vector<glm::vec3> m_norms, string MtlName) {
+
+		this->m_texturesSave = m_textures;
+		this->m_vertsSave = m_verts;
+		this->m_normsSave = m_norms;
 
 		GLuint VAO = 0;
 		glGenVertexArrays(1, &VAO);
@@ -191,8 +237,8 @@ public:
 		GLuint textures;
 		glGenTextures(1, &textures);
 		glEnable(GL_TEXTURE_2D);
-		int width, height;
-		unsigned char* image;
+		//int width, height;
+		//unsigned char* image;
 
 		//Carregamento de imagem
 		glActiveTexture(GL_TEXTURE0);
@@ -203,7 +249,7 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		//image = SOIL_load_image("wall.png", &width, &height, 0, SOIL_LOAD_RGB);
 		//image = SOIL_load_image("road.jpg", &width, &height, 0, SOIL_LOAD_RGB);
-		image = SOIL_load_image("road.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+		this->image = SOIL_load_image(textureImage, &width, &height, 0, SOIL_LOAD_RGB);
 
 		if (image) {
 			cout << "image loaded sucesfully:" << endl;
@@ -241,6 +287,52 @@ public:
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 		glEnableVertexAttribArray(3);
 
+	}
+
+	void inicializacaoSimples() {
+		
+		// Load textures
+		//GLuint textures;
+		//glGenTextures(1, &textures);
+		//glEnable(GL_TEXTURE_2D);
+		//int width, height;
+		//unsigned char* image;
+
+		//Carregamento de imagem
+		//glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, textures);
+		
+
+		GLuint vertsVBO = 0;
+		glGenBuffers(1, &vertsVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_fullVerts.size(), &m_fullVerts[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+		//VBO de cores
+		GLuint colorsVBO = 0;
+		glGenBuffers(1, &colorsVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+		glEnableVertexAttribArray(1);
+
+		//VBO de texturas
+		GLuint texturesVBO = 0;
+		glGenBuffers(1, &texturesVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, texturesVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * m_texturesSave.size(), &m_texturesSave[0], GL_STATIC_DRAW);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+		glEnableVertexAttribArray(2);
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		GLuint normsVBO = 0;
+		glGenBuffers(1, &normsVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, normsVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_normsSave.size(), &m_normsSave[0], GL_STATIC_DRAW);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+		glEnableVertexAttribArray(3);
 	}
 
 	void draw() {

@@ -150,8 +150,6 @@ public:
 		return groups[n];
 	}
 
-
-
 	Mesh* read(std::string filename) {
 		Mesh *mesh = new Mesh;
 		std::ifstream arq(filename);

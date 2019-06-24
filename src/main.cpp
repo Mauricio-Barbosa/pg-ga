@@ -14,8 +14,12 @@
 #include <SOIL.h>
 #include "curveCalcs.h"
 #include "ObjWriter.h"
+#include <chrono>
+#include <thread>
 
 using namespace std;
+using namespace std::this_thread; // sleep_for, sleep_until
+using namespace std::chrono; // nanoseconds, system_clock, seconds
 
 //#define EXIT_FAILURE -1
 //#define EXIT_SUCCESS 0
@@ -127,6 +131,7 @@ const char* fragment_shader_points =
 
 //Mode 0 = leitura obj, mode 1 = editor
 int mode = 0;
+int driveCar = 1;
 const unsigned int SCR_WIDTH = 1000;
 const unsigned int SCR_HEIGHT = 700;
 
@@ -134,6 +139,7 @@ const unsigned int SCR_HEIGHT = 700;
 
 
 Mesh* m = new Mesh;
+Mesh* car = new Mesh;
 ObjWriter* objWriter = new ObjWriter;
 glm::mat4 view;
 Camera* camera = new Camera(SCR_WIDTH, SCR_HEIGHT, mode);
@@ -366,6 +372,14 @@ int main() {
 		for (int i = 0; i < m->getGroupSize(); i++) {
 			m->getGroup(i)->inicializacao(m->getTextures(), m->getVerts(), m->getNorms(), m->getNmtlName());
 		}
+		if (driveCar == 1) {
+			car->read("cube2.obj");
+			char* textureName = "wall.png";
+			for (int i = 0; i < car->getGroupSize(); i++) {
+				car->getGroup(i)->setTexture(textureName);
+				car->getGroup(i)->inicializacao(car->getTextures(), car->getVerts(), car->getNorms(), car->getNmtlName());
+			}
+		}
 	}
 	glEnable(GL_PROGRAM_POINT_SIZE);
 	glPointSize(30.0f);
@@ -376,7 +390,11 @@ int main() {
 	glOrtho(0.0f, SCR_WIDTH, SCR_HEIGHT, 0.0f, 0.0f, 1.0f);
 	glMatrixMode(GL_MODELVIEW);
 	//glViewport(0, 0, 1000, 1000);
-
+	std::vector<glm::vec3> path;
+	if (driveCar == 1) {
+		path = m->getGroup(0)->generateCarPath();
+	}
+	int lastPathPosition = 0;
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
@@ -385,7 +403,19 @@ int main() {
 		if (mode == 0) {
 			glm::mat4 t2;
 			for (int i = 0; i < m->getGroupSize(); i++) {
-				m->getGroup(i)->draw();
+				//m->getGroup(i)->draw();
+				/////////////////////////////////////////////
+				
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+				//m->read("cube2.obj");
+				
+			
+				//m->getGroup(i)->inicializacaoSimples();
+				//m->getGroup(i)->draw();
+
+				
+				
+				/////////////////////////////////////
 
 				t2 = glm::translate(glm::mat4(1.f), glm::vec3(m->getGroup(i)->getlastPositionX(), m->getGroup(i)->getlastPositionY(), m->getGroup(i)->getlastPositionZ()));
 
@@ -397,6 +427,45 @@ int main() {
 				view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
 					camera->getCameraFront(), camera->getCameraUp());
 				glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection * view * t2));
+
+
+				m->getGroup(i)->inicializacaoSimples();
+				m->getGroup(i)->draw();
+
+				////////////////////////////////vvvvvvv
+				
+				glm::vec3 scale = glm::vec3(10.f, 10.f, 10.f);
+
+				t2 = glm::translate(glm::mat4(1.f), glm::vec3(car->getGroup(0)->getlastPositionX(), car->getGroup(0)->getlastPositionY(), car->getGroup(0)->getlastPositionZ()));
+				t2 = glm::scale(t2, scale);
+				view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
+					camera->getCameraFront(), camera->getCameraUp());
+				glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view* t2));
+
+				
+				//car->getGroup(0)->setX(681.954);
+				//car->getGroup(0)->setY(4.13333);
+				//car->getGroup(0)->setZ(359.881);
+					
+				car->getGroup(0)->setX(path.at(lastPathPosition).x);
+				car->getGroup(0)->setY(path.at(lastPathPosition).y+5);
+				car->getGroup(0)->setZ(path.at(lastPathPosition).z);
+
+				car->getGroup(0)->inicializacaoSimples();
+				car->getGroup(0)->draw();
+
+
+				if (lastPathPosition >= path.size() - 1) {
+					lastPathPosition = 0;
+				}
+				else {
+					lastPathPosition++;
+				}
+
+				sleep_for(nanoseconds(1000));
+					
+				
+
 			}
 
 
