@@ -81,53 +81,53 @@ C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Face.h(41,34): warning C4
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Face.h(41,34): warning C4244:         [
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Face.h(41,34): warning C4244:             T=float
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Face.h(41,34): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(100,1): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(121,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(121,25): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(121,25): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(121,25): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(121,25): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(123,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(123,25): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(123,25): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(123,25): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(123,25): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(125,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(125,25): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(125,25): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(125,25): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(125,25): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(135,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(135,25): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(135,25): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(135,25): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(135,25): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(137,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(137,25): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(137,25): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(137,25): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(137,25): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(139,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(139,25): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(139,25): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(139,25): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(139,25): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(156,31): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(156,31): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(156,31): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(156,31): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(156,31): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(158,31): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(158,31): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(158,31): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(158,31): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(158,31): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(160,31): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(160,31): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(160,31): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(160,31): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(160,31): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(339,1): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(106,1): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(127,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(127,25): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(127,25): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(127,25): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(127,25): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(129,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(129,25): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(129,25): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(129,25): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(129,25): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(131,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(131,25): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(131,25): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(131,25): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(131,25): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(141,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(141,25): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(141,25): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(141,25): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(141,25): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(143,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(143,25): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(143,25): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(143,25): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(143,25): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(145,25): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(145,25): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(145,25): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(145,25): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(145,25): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(162,31): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(162,31): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(162,31): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(162,31): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(162,31): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(164,31): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(164,31): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(164,31): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(164,31): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(164,31): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(415,1): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(56,1): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(88,39): warning C4244:  'argument': conversion from 'T' to 'int', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(88,39): warning C4244:         with
@@ -251,10 +251,10 @@ C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(134,1): warn
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(135,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\ObjWriter.h(49,1): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\ObjWriter.h(88,1): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(507,48): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(538,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(565,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(583,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(508,48): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(539,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(566,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(584,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(358,13): warning C4101:  'height': unreferenced local variable
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(358,6): warning C4101:  'width': unreferenced local variable
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(359,17): warning C4101:  'image': unreferenced local variable

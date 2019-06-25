@@ -275,7 +275,7 @@ int main() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glClear(GL_DEPTH_BUFFER_BIT);
-	glCullFace(GL_BACK);
+	//glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
 	
 	//DADOS
@@ -438,6 +438,7 @@ int main() {
 
 				t2 = glm::translate(glm::mat4(1.f), glm::vec3(car->getGroup(0)->getlastPositionX(), car->getGroup(0)->getlastPositionY(), car->getGroup(0)->getlastPositionZ()));
 				t2 = glm::scale(t2, scale);
+				t2 = glm::rotate(t2, 1.f, glm::vec3(0, 1, 0));
 				view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
 					camera->getCameraFront(), camera->getCameraUp());
 				glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view* t2));
@@ -462,7 +463,7 @@ int main() {
 					lastPathPosition++;
 				}
 
-				sleep_for(nanoseconds(1000));
+				sleep_for(nanoseconds(10000));
 					
 				
 
