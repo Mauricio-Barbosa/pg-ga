@@ -12,6 +12,7 @@ using namespace std;
 
 class Mesh {
 private:
+	char* textureNameTemp;
 	std::vector<Group*> groups;
 	std::vector<glm::vec3> m_verts;
 	std::vector<glm::vec3> m_norms;
@@ -20,6 +21,7 @@ private:
 	std::vector<glm::vec2> m_fullText;
 	std::vector<glm::vec3> m_fullNorm;
 	string mtlName;
+	char* textureName;
 	//aux2 é utilizado para armazenar temporariament o vec3 de float montado com base nas faces
 	//quando o método getFull é chamado
 	std::vector<glm::vec3> aux2;
@@ -183,12 +185,20 @@ public:
 				sline >> x >> y >> z;
 				this->insertNorm(x, y, z);
 			}
-			else if (temp == "mtllib") {
-				// mtl
-				string mtlNameTemp;
-				sline >> mtlName;
-				this->mtlName = mtlNameTemp;
-			}
+			//else if (temp == "usemtl") {
+			//	// mtl
+			//	/*getline(arq, line);
+			//	stringstream sline;
+			//	sline << line;
+			//	string temp;
+			//	sline >> temp;*/
+			//	getline(temp, sline, " ");
+
+			//	string mtlNameTemp;
+			//	sline >> mtlName;
+			//	this->mtlName = mtlNameTemp;
+			//	this->textureName = this->getTextureImageName(mtlName);
+			//}
 
 			else if (temp == "g") {
 				Group* g = new Group();
@@ -275,5 +285,25 @@ public:
 			}
 		}
 		return mesh;
+	}
+
+	char* getTextureImageName(string mtlName) {
+		
+		std::ifstream arq(mtlName+".mtl");
+		int groupPos = -1;
+
+		while (!arq.eof()) {
+			string line;
+			getline(arq, line);
+			stringstream sline;
+			sline << line;
+			string temp;
+			sline >> temp;
+			if (temp == "#newmtl") {
+				sline >> textureNameTemp;
+				this->mtlName = textureNameTemp;
+			}
+		}
+		return textureNameTemp;
 	}
 };

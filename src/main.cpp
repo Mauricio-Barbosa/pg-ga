@@ -24,8 +24,6 @@ using namespace std::chrono; // nanoseconds, system_clock, seconds
 //#define EXIT_FAILURE -1
 //#define EXIT_SUCCESS 0
 
-
-
 const char* vertex_shader =
 "#version 410\n"
 "layout(location=0) in vec3 vp;" //vertex position
@@ -49,10 +47,6 @@ const char* vertex_shader =
 "	gl_Position = matrix * vec4 (vp, 1.0);"
 "}";
 
-
-
-
-
 const char* fragment_shader =
 "#version 410\n"
 "in vec3 pos;"
@@ -74,37 +68,14 @@ const char* fragment_shader =
 "out vec4 frag_color;"
 "void main () {"
 "	vec3 norm = normalize(vertex_normals);"
-//"	vec3 lightPos = vec3(0.0f, 0.0f, 3.0f);"
 "	vec3 lightPos = vec3(0.0f, 0.0f, 3.0f);"
 "	vec3 lightDir = normalize(lightPos - pos);"
 "	float diff = max(dot(norm, lightDir), 0.0);"
 "	diff = clamp(diff, 0.0, 1.0);"
-//"	vec3 diffuse = diff * lightColor;"
 "	float ilum = pa+pd+ps;"
 "	frag_color = texture(basic_texture, texture_coordinates) * vec4(color_values, 1.0) * (diff+ilum);"
-//"	frag_color = texture(basic_texture, texture_coordinates) * (diff + ilum);"
-"}";
-/*
-const char* vertex_shader_points =
-"#version 410\n"
-"layout(location=0) in vec3 vp;" //vertex position
-"layout(location=1) in vec3 vc;" //vertex color
-"uniform mat4 matrix;"
-"out vec3 color_values;" ///////////
-"void main () {"
-"   color_values = vc;"
-"	gl_Position = matrix * vec4 (vp, 1.0);"
-"}";
 
-const char* fragment_shader_points =
-"#version 410\n"
-"in vec3 color_values;"
-"out vec4 frag_color;"
-"void main () {"
-//"	vec4 frag_color = vec4(color_values, 1.0);"
-"	frag_color = vec4(1.0f, 0.0f, 1.0f, 1.0f);"
 "}";
-*/
 
 const char* vertex_shader_points =
 "#version 410\n"
@@ -135,9 +106,6 @@ int driveCar = 1;
 const unsigned int SCR_WIDTH = 1000;
 const unsigned int SCR_HEIGHT = 700;
 
-
-
-
 Mesh* m = new Mesh;
 Mesh* car = new Mesh;
 ObjWriter* objWriter = new ObjWriter;
@@ -155,7 +123,6 @@ std::vector<glm::vec3> drawInternalLines;
 std::vector<glm::vec3> drawExternalLines;
 std::vector<glm::vec3> drawColors;
 std::vector<glm::vec3> LineColors;
-
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -275,7 +242,7 @@ int main() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glClear(GL_DEPTH_BUFFER_BIT);
-	//glCullFace(GL_BACK);
+	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
 	
 	//DADOS
@@ -373,6 +340,7 @@ int main() {
 			m->getGroup(i)->inicializacao(m->getTextures(), m->getVerts(), m->getNorms(), m->getNmtlName());
 		}
 		if (driveCar == 1) {
+			//car->read("cube2.obj");
 			car->read("cube2.obj");
 			char* textureName = "wall.png";
 			for (int i = 0; i < car->getGroupSize(); i++) {
@@ -395,6 +363,11 @@ int main() {
 		path = m->getGroup(0)->generateCarPath();
 	}
 	int lastPathPosition = 0;
+
+
+	float angleX = 0;
+	float angleY = 0.01;
+	float angleZ = 0;
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
@@ -438,20 +411,46 @@ int main() {
 
 				t2 = glm::translate(glm::mat4(1.f), glm::vec3(car->getGroup(0)->getlastPositionX(), car->getGroup(0)->getlastPositionY(), car->getGroup(0)->getlastPositionZ()));
 				t2 = glm::scale(t2, scale);
-				t2 = glm::rotate(t2, 1.f, glm::vec3(0, 1, 0));
-				view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
-					camera->getCameraFront(), camera->getCameraUp());
-				glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view* t2));
+
+				t2 = glm::rotate(t2, angleX, glm::vec3(1, 0, 0));
+				t2 = glm::rotate(t2, angleY, glm::vec3(0, 1, 0));
+				t2 = glm::rotate(t2, angleZ, glm::vec3(0, 0, 1));
+				
+				//angleY += 0.01f;
+				/*if (i % 10 == 0) {
+					float angle = curveCalcs.xAngleBetweenPoints(
+						glm::vec3(path.at(lastPathPosition).x, path.at(lastPathPosition).y, path.at(lastPathPosition).z),
+						glm::vec3(path.at((lastPathPosition + 10) % path.size()).x, path.at((lastPathPosition + 10) % path.size()).y, path.at((lastPathPosition + 10) % path.size()).z)
+					);
+					angleY += angle/10;
+				}*/
+
+				
+				/*if (angleX > 6.28 || angleX < 6.28) {
+					angleX = 0;
+				}
+				if (angleY > 6.28 || angleY < 6.2) {
+					angleY = 0;
+				}
+				if (angleZ > 6.28) {
+					angleZ = 0;
+				}*/
+
+
+				/*view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
+					camera->getCameraFront(), camera->getCameraUp());*/
+				glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view* t2)); 
 
 				
 				//car->getGroup(0)->setX(681.954);
 				//car->getGroup(0)->setY(4.13333);
 				//car->getGroup(0)->setZ(359.881);
-					
+				
 				car->getGroup(0)->setX(path.at(lastPathPosition).x);
-				car->getGroup(0)->setY(path.at(lastPathPosition).y+5);
+				car->getGroup(0)->setY(path.at(lastPathPosition).y+10);
 				car->getGroup(0)->setZ(path.at(lastPathPosition).z);
 
+				//car->getGroup(0)->inicializacaoSimples();
 				car->getGroup(0)->inicializacaoSimples();
 				car->getGroup(0)->draw();
 
@@ -483,11 +482,8 @@ int main() {
 
 		drawColors = callback->color;
 		
-
 		if (mode == 1 && drawPoints.size()>0) {
 			
-			
-
 			GLuint vertsVBO = 0;
 			glGenBuffers(1, &vertsVBO);
 			glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);

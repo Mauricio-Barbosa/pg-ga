@@ -158,4 +158,20 @@ public:
 		return ExternalPoints;
 	}
 
+	float xAngleBetweenPoints(glm::vec3 pointA, glm::vec3 pointB) {
+		float w = 0;
+		float h = 0;
+		float theta = 0;
+		w = pointB.x - pointA.x;
+		h = pointB.y - pointA.y;
+		theta = atan(h / w);
+		/*if (theta<0.001 && theta>-0.001)
+			theta = 0;*/
+
+		float angle = acos(dot(normalize(pointB), normalize(pointA)));
+			
+		//return theta;
+		return angle;
+	}
+
 };

@@ -128,17 +128,12 @@ C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning 
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning C4244:             T=float
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning C4244:         ]
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(415,1): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(56,1): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(88,39): warning C4244:  'argument': conversion from 'T' to 'int', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(88,39): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(88,39): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(88,39): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(88,39): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(99,32): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(99,32): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(99,32): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(99,32): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(99,32): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(58,1): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(90,39): warning C4244:  'argument': conversion from 'T' to 'int', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(90,39): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(90,39): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(90,39): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(90,39): warning C4244:         ]
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(101,32): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(101,32): warning C4244:         with
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(101,32): warning C4244:         [
@@ -149,11 +144,11 @@ C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(103,32): warning C
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(103,32): warning C4244:         [
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(103,32): warning C4244:             T=float
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(103,32): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(115,32): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(115,32): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(115,32): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(115,32): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(115,32): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(105,32): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(105,32): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(105,32): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(105,32): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(105,32): warning C4244:         ]
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(117,32): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(117,32): warning C4244:         with
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(117,32): warning C4244:         [
@@ -164,11 +159,11 @@ C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(119,32): warning C
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(119,32): warning C4244:         [
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(119,32): warning C4244:             T=float
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(119,32): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(138,35): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(138,35): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(138,35): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(138,35): warning C4244:             T=float
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(138,35): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(121,32): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(121,32): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(121,32): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(121,32): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(121,32): warning C4244:         ]
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(140,35): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(140,35): warning C4244:         with
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(140,35): warning C4244:         [
@@ -179,42 +174,47 @@ C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(142,35): warning C
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(142,35): warning C4244:         [
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(142,35): warning C4244:             T=float
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(142,35): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(235,34): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(239,37): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(246,35): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(248,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(248,32): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(248,32): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(248,32): warning C4244:             _Ty=int
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(248,32): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(249,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(249,32): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(249,32): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(249,32): warning C4244:             _Ty=int
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(249,32): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(250,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(250,32): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(250,32): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(250,32): warning C4244:             _Ty=int
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(250,32): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(254,34): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(258,37): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(265,35): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(267,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(267,32): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(267,32): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(267,32): warning C4244:             _Ty=int
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(267,32): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(268,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(268,32): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(268,32): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(268,32): warning C4244:             _Ty=int
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(268,32): warning C4244:         ]
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(269,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(269,32): warning C4244:         with
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(269,32): warning C4244:         [
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(269,32): warning C4244:             _Ty=int
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(269,32): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(144,35): warning C4244:  'argument': conversion from 'T' to 'const unsigned __int64', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(144,35): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(144,35): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(144,35): warning C4244:             T=float
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(144,35): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(245,34): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(249,37): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(256,35): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(258,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(258,32): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(258,32): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(258,32): warning C4244:             _Ty=int
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(258,32): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(259,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(259,32): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(259,32): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(259,32): warning C4244:             _Ty=int
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(259,32): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(260,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(260,32): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(260,32): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(260,32): warning C4244:             _Ty=int
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(260,32): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(264,34): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(268,37): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(275,35): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(277,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(277,32): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(277,32): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(277,32): warning C4244:             _Ty=int
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(277,32): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(278,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(278,32): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(278,32): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(278,32): warning C4244:             _Ty=int
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(278,32): warning C4244:         ]
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(279,32): warning C4244:  'argument': conversion from 'float' to 'const _Ty', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(279,32): warning C4244:         with
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(279,32): warning C4244:         [
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(279,32): warning C4244:             _Ty=int
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(279,32): warning C4244:         ]
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(64,20): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(65,20): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(69,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
@@ -251,13 +251,14 @@ C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(134,1): warn
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(135,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\ObjWriter.h(49,1): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\ObjWriter.h(88,1): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(508,48): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(539,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(566,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(584,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(358,13): warning C4101:  'height': unreferenced local variable
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(358,6): warning C4101:  'width': unreferenced local variable
-C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(359,17): warning C4101:  'image': unreferenced local variable
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(369,21): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(504,48): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(535,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(562,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(580,52): warning C4267:  'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(325,13): warning C4101:  'height': unreferenced local variable
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(325,6): warning C4101:  'width': unreferenced local variable
+C:\Users\mauri\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(326,17): warning C4101:  'image': unreferenced local variable
   SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
