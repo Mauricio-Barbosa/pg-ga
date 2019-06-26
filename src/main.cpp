@@ -395,8 +395,8 @@ int main() {
 				glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
 				glm::vec4 transformedVector = t2 * vector;
 				glm::mat4 projection = glm::perspective(glm::radians(camera->fov),
-					//(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, 100.0f);
-					(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, -20.1f, 20.0f);
+					(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, -0.1f);
+					//(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, -20.1f, 20.0f);
 				view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
 					camera->getCameraFront(), camera->getCameraUp());
 				glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection * view * t2));

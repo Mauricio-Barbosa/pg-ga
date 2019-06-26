@@ -37,7 +37,7 @@ public:
 		cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		//cameraSpeed = 0.0005f;
-		cameraSpeed = 0.5f;
+		cameraSpeed = 2.5f;
 		this->SCR_WIDTH = SCR_WIDTH;
 		this->SCR_HEIGHT = SCR_HEIGHT;
 		lastX = SCR_WIDTH / 2.0f;
