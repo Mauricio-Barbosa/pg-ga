@@ -101,9 +101,14 @@ public:
 		} else{
 		
 			if (yoffset > 0 ) {
-				this->click_verts.at(click_verts.size() - 1).z += 0.2;
+				/*this->click_verts.at(click_verts.size() - 1).z += 0.2;
 				if (this->click_verts.at(click_verts.size() - 1).z > 20) {
 					this->click_verts.at(click_verts.size() - 1).z = 20;
+				}*/
+
+				this->click_verts.at(click_verts.size() - 1).z += 20;
+				if (this->click_verts.at(click_verts.size() - 1).z > 200) {
+					this->click_verts.at(click_verts.size() - 1).z = 200;
 				}
 
 				this->color.at(color.size() - 1).z += 0.1;
@@ -112,7 +117,12 @@ public:
 				}
 			}
 			else if (yoffset < 0) {
-				this->click_verts.at(click_verts.size() - 1).z -= 0.2;
+				/*this->click_verts.at(click_verts.size() - 1).z -= 0.2;
+				if (this->click_verts.at(click_verts.size() - 1).z < 0) {
+					this->click_verts.at(click_verts.size() - 1).z = 0;
+				}*/
+
+				this->click_verts.at(click_verts.size() - 1).z -= 20;
 				if (this->click_verts.at(click_verts.size() - 1).z < 0) {
 					this->click_verts.at(click_verts.size() - 1).z = 0;
 				}

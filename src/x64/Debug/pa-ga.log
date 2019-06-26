@@ -127,7 +127,7 @@ C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31)
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning C4244:         [
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning C4244:             T=float
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(166,31): warning C4244:         ]
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(415,1): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Group.h(346,1): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(58,1): warning C4267:  'return': conversão de 'size_t' para 'int', possível perda de dados
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(90,39): warning C4244:  'argumento': conversão de 'T' para 'int', possível perda de dados
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Mesh.h(90,39): warning C4244:         with
@@ -223,42 +223,32 @@ C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(71,1
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(72,19): warning C4244:  '=': conversão de 'double' para 'float', possível perda de dados
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(73,1): warning C4305:  'inicializando': truncamento de 'double' para 'float'
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(95,1): warning C4244:  '-=': conversão de 'double' para 'float', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(104,1): warning C4305:  '+=': truncamento de 'double' para 'T'
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(104,1): warning C4305:         with
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(104,1): warning C4305:         [
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(104,1): warning C4305:             T=float
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(104,1): warning C4305:         ]
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(109,1): warning C4305:  '+=': truncamento de 'double' para 'T'
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(109,1): warning C4305:         with
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(109,1): warning C4305:         [
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(109,1): warning C4305:             T=float
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(109,1): warning C4305:         ]
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(115,1): warning C4305:  '-=': truncamento de 'double' para 'T'
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(115,1): warning C4305:         with
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(115,1): warning C4305:         [
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(115,1): warning C4305:             T=float
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(115,1): warning C4305:         ]
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(120,1): warning C4305:  '-=': truncamento de 'double' para 'T'
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(120,1): warning C4305:         with
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(120,1): warning C4305:         [
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(120,1): warning C4305:             T=float
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(120,1): warning C4305:         ]
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(38,1): warning C4267:  'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(58,1): warning C4305:  'inicializando': truncamento de 'double' para 'float'
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(96,1): warning C4267:  'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(97,17): warning C4244:  'inicializando': conversão de 'double' para 'float', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(134,1): warning C4267:  'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(135,17): warning C4244:  'inicializando': conversão de 'double' para 'float', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(114,1): warning C4305:  '+=': truncamento de 'double' para 'T'
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(114,1): warning C4305:         with
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(114,1): warning C4305:         [
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(114,1): warning C4305:             T=float
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(114,1): warning C4305:         ]
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(130,1): warning C4305:  '-=': truncamento de 'double' para 'T'
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(130,1): warning C4305:         with
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(130,1): warning C4305:         [
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(130,1): warning C4305:             T=float
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\Callback.h(130,1): warning C4305:         ]
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(41,1): warning C4267:  'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(61,1): warning C4305:  'inicializando': truncamento de 'double' para 'float'
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(99,1): warning C4267:  'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(100,17): warning C4244:  'inicializando': conversão de 'double' para 'float', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(137,1): warning C4267:  'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\curveCalcs.h(138,17): warning C4244:  'inicializando': conversão de 'double' para 'float', possível perda de dados
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\ObjWriter.h(49,1): warning C4267:  'inicializando': conversão de 'size_t' para 'int', possível perda de dados
 C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\ObjWriter.h(88,1): warning C4267:  'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(369,21): warning C4305:  'inicializando': truncamento de 'double' para 'float'
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(504,48): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(535,52): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(562,52): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(580,52): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(325,13): warning C4101:  'height': variável local não referenciada
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(325,6): warning C4101:  'width': variável local não referenciada
-C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(326,17): warning C4101:  'image': variável local não referenciada
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(387,21): warning C4305:  'inicializando': truncamento de 'double' para 'float'
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(506,48): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(537,52): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(564,52): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(582,52): warning C4267:  'argumento': conversão de 'size_t' para 'GLsizei', possível perda de dados
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(343,13): warning C4101:  'height': variável local não referenciada
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(343,6): warning C4101:  'width': variável local não referenciada
+C:\Users\MauricioBarbosa\source\repos\Mauricio-Barbosa\pg-ga\src\main.cpp(344,17): warning C4101:  'image': variável local não referenciada
   SOIL.lib(SOIL.obj) : MSIL .netmodule ou módulo compilado com /GL encontrado; reiniciando link com /LTCG; adicione /LTCG ao link da linha de comando para melhorar performance do vinculador
 LINK : warning LNK4075: ignorando '/INCREMENTAL' devido a especificaþÒo '/LTCG'
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflita com uso de outras bibliotecas; use /NODEFAULTLIB:library

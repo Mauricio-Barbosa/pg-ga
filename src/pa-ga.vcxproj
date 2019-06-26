@@ -137,6 +137,7 @@
     <ClInclude Include="Face.h" />
     <ClInclude Include="Group.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="ObjWriter.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />

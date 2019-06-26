@@ -306,15 +306,7 @@ public:
 		VAO = 0;
 		glGenVertexArrays(1, &VAO);
 		glBindVertexArray(VAO);
-
-		/*m_colors = this->getFullVerticesColor();
-		for (int i = 0; i < m_colors.size(); i++) {
-			m_colors.at(i).x = 1;
-			m_colors.at(i).y = 1;
-			m_colors.at(i).z = 1;
-		}*/
-		//m_textures = this->getFullTextures(m_textures);
-
+		
 		vertsVBO = 0;
 		glGenBuffers(1, &vertsVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
@@ -322,36 +314,8 @@ public:
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-		// Load textures
-		
-		//glGenTextures(1, &textures);
-		//glEnable(GL_TEXTURE_2D);
-		//int width, height;
-		//unsigned char* image;
-
-		//Carregamento de imagem
-		//glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textures);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		//image = SOIL_load_image("wall.png", &width, &height, 0, SOIL_LOAD_RGB);
-		//image = SOIL_load_image("road.jpg", &width, &height, 0, SOIL_LOAD_RGB);
-		//this->image = SOIL_load_image(textureImage, &width, &height, 0, SOIL_LOAD_RGB);
-
-		/*if (image) {
-			cout << "image loaded sucesfully:" << endl;
-			cout << "image width = " << width << endl;
-			cout << "image height = " << height << endl;
-		}
-		else {
-			cout << "failed to load image" << endl;
-		}*/
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-		//glGenerateMipmap(GL_TEXTURE_2D);
-		//SOIL_free_image_data(image);
-
+		
 		//VBO de cores
 		colorsVBO = 0;
 		glGenBuffers(1, &colorsVBO);
@@ -376,39 +340,6 @@ public:
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 		glEnableVertexAttribArray(3);
 
-		
-		/*
-		GLuint vertsVBO = 0;
-		glGenBuffers(1, &vertsVBO);
-		glBindBuffer(GL_ARRAY_BUFFER, vertsVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_fullVerts.size(), &m_fullVerts[0], GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-		//VBO de cores
-		GLuint colorsVBO = 0;
-		glGenBuffers(1, &colorsVBO);
-		glBindBuffer(GL_ARRAY_BUFFER, colorsVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_colors.size(), &m_colors[0], GL_STATIC_DRAW);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-		glEnableVertexAttribArray(1);
-
-		//VBO de texturas
-		GLuint texturesVBO = 0;
-		glGenBuffers(1, &texturesVBO);
-		glBindBuffer(GL_ARRAY_BUFFER, texturesVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * m_texturesSave.size(), &m_texturesSave[0], GL_STATIC_DRAW);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-		glEnableVertexAttribArray(2);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		GLuint normsVBO = 0;
-		glGenBuffers(1, &normsVBO);
-		glBindBuffer(GL_ARRAY_BUFFER, normsVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * m_normsSave.size(), &m_normsSave[0], GL_STATIC_DRAW);
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-		glEnableVertexAttribArray(3);
-		*/
 	}
 
 	void draw() {

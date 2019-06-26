@@ -10,7 +10,10 @@
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp>
 #include <stdlib.h>     /* abs */
+#define _USE_MATH_DEFINES
 #include <math.h>       /* atan */
+
+
 
 class CurveCalcs {
 
@@ -21,7 +24,7 @@ private:
 public:
 
 	CurveCalcs() {
-		maxAlt = 20;
+		maxAlt = 200;
 		minAlt = 0;
 	};
 
@@ -158,20 +161,30 @@ public:
 		return ExternalPoints;
 	}
 
-	float xAngleBetweenPoints(glm::vec3 pointA, glm::vec3 pointB) {
-		float w = 0;
+	float xAngleBetweenPoints(glm::vec3 point0, glm::vec3 pointA, glm::vec3 pointB) {
+		/*float w = 0;
 		float h = 0;
 		float theta = 0;
 		w = pointB.x - pointA.x;
 		h = pointB.y - pointA.y;
-		theta = atan(h / w);
-		/*if (theta<0.001 && theta>-0.001)
-			theta = 0;*/
+		theta = atan(h);
+		
+		if (h < 0)
+			theta = theta * -1;
+		return theta;*/
+		float dxA, dyA;
+		dxA = pointA.x - point0.x;
+		dyA = pointA.z - point0.z;
 
-		float angle = acos(dot(normalize(pointB), normalize(pointA)));
-			
-		//return theta;
-		return angle;
+		float dxB, dyB;
+		dxB = pointB.x - point0.x;
+		dyB = pointB.z - point0.z;
+
+		float ang_radA = atan2(dyA, dxA);
+		float ang_radB = atan2(dyB, dxB);
+		float ang_deg = (ang_radA - ang_radB);// *180.0f / M_PI;
+		
+		return ang_deg;
 	}
 
 };

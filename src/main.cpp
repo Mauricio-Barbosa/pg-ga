@@ -102,7 +102,10 @@ const char* fragment_shader_points =
 
 //Mode 0 = leitura obj, mode 1 = editor
 int mode = 0;
-int driveCar = 1;
+int driveCar;
+
+
+
 const unsigned int SCR_WIDTH = 1000;
 const unsigned int SCR_HEIGHT = 700;
 
@@ -197,6 +200,14 @@ void processInput(GLFWwindow *window){
 			cout << "Camera Front x = " << camera->getCameraFront().x << endl;
 			cout << "Camera Front y = " << camera->getCameraFront().y << endl;
 			cout << "Camera Front z = " << camera->getCameraFront().z << endl;
+			cout << "" << endl;
+			cout << "Camera Pos x = " << camera->getCameraFront().x << endl;
+			cout << "Camera Pos y = " << camera->getCameraFront().y << endl;
+			cout << "Camera Pos z = " << camera->getCameraFront().z << endl;
+			cout << "" << endl;
+			cout << "Camera Up x = " << camera->getCameraUp().x << endl;
+			cout << "Camera Up y = " << camera->getCameraUp().y << endl;
+			cout << "Camera Up z = " << camera->getCameraUp().z << endl;
 		}
 	}
 	else {
@@ -209,6 +220,13 @@ void processInput(GLFWwindow *window){
 
 
 int main() {
+	
+	if (mode == 0) {
+		driveCar = 1;
+	}
+	else {
+		driveCar = 0;
+	}
 
 	callback = new Callback(mode, camera);
 	glEnable(0x8642);
@@ -376,36 +394,23 @@ int main() {
 		if (mode == 0) {
 			glm::mat4 t2;
 			for (int i = 0; i < m->getGroupSize(); i++) {
-				//m->getGroup(i)->draw();
-				/////////////////////////////////////////////
 				
 				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-				//m->read("cube2.obj");
 				
-			
-				//m->getGroup(i)->inicializacaoSimples();
-				//m->getGroup(i)->draw();
-
-				
-				
-				/////////////////////////////////////
-
 				t2 = glm::translate(glm::mat4(1.f), glm::vec3(m->getGroup(i)->getlastPositionX(), m->getGroup(i)->getlastPositionY(), m->getGroup(i)->getlastPositionZ()));
 
 				glm::vec4 vector(0.f, 0.f, 0.f, 0.f);
 				glm::vec4 transformedVector = t2 * vector;
 				glm::mat4 projection = glm::perspective(glm::radians(camera->fov),
 					(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, -0.1f);
-					//(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, -20.1f, 20.0f);
 				view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
 					camera->getCameraFront(), camera->getCameraUp());
 				glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection * view * t2));
 
 
-				m->getGroup(i)->inicializacaoSimples();
-				m->getGroup(i)->draw();
+				m->getGroup(0)->inicializacaoSimples();
+				m->getGroup(0)->draw();
 
-				////////////////////////////////vvvvvvv
 				
 				glm::vec3 scale = glm::vec3(10.f, 10.f, 10.f);
 
@@ -416,24 +421,21 @@ int main() {
 				t2 = glm::rotate(t2, angleY, glm::vec3(0, 1, 0));
 				t2 = glm::rotate(t2, angleZ, glm::vec3(0, 0, 1));
 				
-				//angleY += 0.01f;
-				/*if (i % 10 == 0) {
+				/*if (lastPathPosition % 12 == 0) {
 					float angle = curveCalcs.xAngleBetweenPoints(
 						glm::vec3(path.at(lastPathPosition).x, path.at(lastPathPosition).y, path.at(lastPathPosition).z),
-						glm::vec3(path.at((lastPathPosition + 10) % path.size()).x, path.at((lastPathPosition + 10) % path.size()).y, path.at((lastPathPosition + 10) % path.size()).z)
+						glm::vec3(path.at((lastPathPosition + 1) % path.size()).x, path.at((lastPathPosition + 1) % path.size()).y, path.at((lastPathPosition + 1) % path.size()).z),
+						glm::vec3(path.at((lastPathPosition + 2) % path.size()).x, path.at((lastPathPosition + 2) % path.size()).y, path.at((lastPathPosition + 2) % path.size()).z)
 					);
-					angleY += angle/10;
+					angleY = angle;
 				}*/
 
 				
-				/*if (angleX > 6.28 || angleX < 6.28) {
+				/*if (angleX > 6.28 || angleX < -6.28) {
 					angleX = 0;
 				}
-				if (angleY > 6.28 || angleY < 6.2) {
+				if (angleY > 6.28 || angleY < -6.28) {
 					angleY = 0;
-				}
-				if (angleZ > 6.28) {
-					angleZ = 0;
 				}*/
 
 
@@ -509,7 +511,7 @@ int main() {
 			//glm::mat4 projection = glm::perspective(glm::radians(camera->fov),
 			//	(float)camera->SCR_WIDTH / (float)camera->SCR_HEIGHT, 0.1f, 100.0f);
 
-			glm::mat4 projection = glm::ortho(0.0f, (float)SCR_WIDTH, (float)SCR_HEIGHT, 0.0f, -2.0f, 2.0f);
+			glm::mat4 projection = glm::ortho(0.0f, (float)SCR_WIDTH, (float)SCR_HEIGHT, 0.0f, -200.0f, 200.0f);
 			view = glm::lookAt(camera->getCameraPos(), camera->getCameraPos() +
 				camera->getCameraFront(), camera->getCameraUp());
 			glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(projection* view));
